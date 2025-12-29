@@ -482,11 +482,12 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 ## Links
 
-- [Documentation](#documentation)
+- [Documentation](https://dooziesoftware.github.io/brain-md-cli/)
+- [Roadmap](ROADMAP.md)
 - [TOON Specification](spec/TOON_SPEC_v1.0.md)
 - [Driver Prompt Specification](spec/DRIVER_PROMPT.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
-- [GitHub Issues](https://github.com/[username]/brain-md/issues)
+- [GitHub Issues](https://github.com/DoozieSoftware/brain-md-cli/issues)
 
 ## Acknowledgments
 
