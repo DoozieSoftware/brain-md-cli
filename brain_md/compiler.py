@@ -139,6 +139,32 @@ def parse_pointer(pointer: str) -> tuple[str, tuple[int, int] | None]:
     return pointer, None
 
 
+def generate_driver_prompt(kernel: dict) -> str:
+    """
+    Generate mode-specific driver prompt.
+
+    Args:
+        kernel: KERNEL section dictionary
+
+    Returns:
+        Driver prompt string based on mode
+    """
+    mode = kernel.get("mode", "").lower()
+
+    # Default prompt
+    default_prompt = "SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`."
+
+    # Mode-specific prompts per spec
+    if "strict" in mode or "code-only" in mode:
+        return "SYSTEM RESET. FORMAT=TOON. STRICT MODE: Code only, no explanations. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`."
+    elif "creative" in mode:
+        return "SYSTEM RESET. FORMAT=TOON. CREATIVE MODE: Explore freely within constraints. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`."
+    elif "analysis" in mode or "planning" in mode:
+        return "SYSTEM RESET. FORMAT=TOON. ANALYSIS MODE: Review and report, no modifications. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`."
+    else:
+        return default_prompt
+
+
 def validate_brain_config(config: BrainConfig) -> None:
     """
     Validate BrainConfig structure and raise errors if malformed.
