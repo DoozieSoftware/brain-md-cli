@@ -1,0 +1,21 @@
+[run]
+source = brain_md
+omit =
+    */__pycache__/*
+    */tests/*
+    */__init__.py
+    */cli.py
+    setup.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if TYPE_CHECKING:
+    if __name__ == .__main__.:
+    @abstractmethod
+
+precision = 2
+show_missing = True
+skip_covered = False
