@@ -3,8 +3,9 @@
 import re
 from pathlib import Path
 
-from brain_md.models import BrainConfig, CompileResult, CompileError, ResolvedPointer
+from brain_md.models import BrainConfig, CompileResult, CompileError
 from brain_md.parser import parse_toon, strip_comments
+from brain_md.pointer import parse_pointer, resolve_pointer, extract_pointers
 from brain_md.tokens import estimate_tokens
 
 
@@ -45,35 +46,12 @@ def compile_brain(source: Path) -> CompileResult:
     # Validate parsed structure
     validate_brain_config(brain_config)
 
-    # Find all @pointer references (quoted strings starting with @)
-    pointer_pattern = r'"@([^"]+)"'
+    # Resolve all pointers
+    pointers = extract_pointers(content)
     resolved_pointers: list[ResolvedPointer] = []
 
-    def collect_pointer(match: re.Match) -> str:
-        pointer = match.group(1)
-        file_path, line_range = parse_pointer(pointer)
-
-        full_path = base_dir / file_path
-        if not full_path.exists():
-            raise CompileError(f"Pointer target not found: @{pointer} -> {full_path}")
-
-        file_content = full_path.read_text()
-
-        # Apply line range if specified
-        if line_range:
-            start, end = line_range
-            lines = file_content.splitlines()
-            file_content = "\n".join(lines[start - 1 : end])
-
-        resolved_pointers.append(
-            ResolvedPointer(
-                original=f"@{pointer}", path=full_path, content=file_content.strip()
-            )
-        )
-        return match.group(0)  # Keep original reference
-
-    # Collect all pointers (keeps original content intact)
-    re.sub(pointer_pattern, collect_pointer, content)
+    for pointer in pointers:
+        resolved_pointers.append(resolve_pointer(f"@{pointer}", base_dir))
 
     # Build appendix with resolved file contents
     appendix = ""
@@ -82,7 +60,7 @@ def compile_brain(source: Path) -> CompileResult:
         for rp in resolved_pointers:
             appendix += f"\n{rp.original}:\n>>>\n{rp.content}\n<<<\n"
 
-    # Add driver prompt header
+    # Add driver prompt header (with backticks per spec)
     driver = "SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.\n\n"
 
     # Strip comments from final payload (but keep in source file for editing)
