@@ -1,0 +1,31 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Deploy to GitHub Pages
+        run: |
+          python -m pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints myst-parser
+          python -m pip install pyperclip watchdog tiktoken rich
+          cd docs
+          make html
+          touch .nojekyll
+          echo "Documentation deployed successfully"
