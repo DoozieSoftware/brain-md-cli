@@ -51,3 +51,4 @@ htmlcov/
 # Documentation
 docs/_build/
 docs/build
+examples/diplomatic_crisis/context.md
