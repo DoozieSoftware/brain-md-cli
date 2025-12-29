@@ -51,7 +51,7 @@ def compile_brain(source: Path) -> CompileResult:
     resolved_pointers: list[ResolvedPointer] = []
 
     for pointer in pointers:
-        resolved_pointers.append(resolve_pointer(f"@{pointer}", base_dir))
+        resolved_pointers.append(resolve_pointer(pointer, base_dir))
 
     # Build appendix with resolved file contents
     appendix = ""
@@ -61,7 +61,7 @@ def compile_brain(source: Path) -> CompileResult:
             appendix += f"\n{rp.original}:\n>>>\n{rp.content}\n<<<\n"
 
     # Add driver prompt header (with backticks per spec)
-    driver = "SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.\n\n"
+    driver = generate_driver_prompt(brain_config.kernel) + "\n\n"
 
     # Strip comments from final payload (but keep in source file for editing)
     lines = content.splitlines()

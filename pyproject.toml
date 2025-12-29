@@ -1,6 +1,6 @@
 [project]
 name = "brain-md"
-version = "0.1.0"
+version = "0.3.0"
 description = "Context Control Protocol for LLMs - Stateless RAM Model"
 readme = "README.md"
 license = "MIT"

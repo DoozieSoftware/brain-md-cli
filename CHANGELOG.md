@@ -2,6 +2,56 @@
 
 All notable changes to Brain.md will be documented in this file.
 
+## [0.3.0] - 2025-12-29 - Live Context Management (Phase 6)
+
+### Added
+- **Boot Command** - Initialize sessions by creating context.md from brain.md
+  - Generates live, editable context file (the "RAM")
+  - Preserves all TOON sections (KERNEL, REGISTERS, MEMORY_POINTERS, PROCESS_STACK)
+  - Adds new SESSION_SCRATCHPAD section for live editing
+  - `brain boot <source>` CLI command
+
+- **Context.md Schema** - Live session state format
+  - Session metadata header (creation timestamp, source file)
+  - All original TOON sections with comments
+  - SESSION_SCRATCHPAD with:
+    - session_notes (multi-line YAML)
+    - todo_list (array)
+    - current_focus (multi-line YAML)
+  - Footer with usage hints
+
+- **State Management Philosophy**
+  - Live RAM model: Edit context.md during sessions
+  - Not a chat history logger (adheres to "Flush" principle)
+  - Session = current state of context.md, not timeline of interactions
+  - brain.md = source of truth, context.md = working RAM
+
+### Changed
+- **Compiler Bug Fix** - Fixed pointer resolution
+  - Removed double @ prefix bug in pointer resolution
+  - extract_pointers() now correctly returns paths without @
+  - resolve_pointer() properly handles the @ prefix internally
+
+- **Driver Prompt Integration** - Now uses generate_driver_prompt()
+  - Mode-specific prompts properly applied to all compilations
+  - Consistent driver prompt generation across all modes
+
+- **Watcher** - Now supports context.md as source
+  - Works seamlessly with context.md files
+  - Auto-recompiles context.md changes
+  - Maintains pointer resolution for referenced files
+
+### Fixed
+- Pointer resolution double @ prefix bug (reported in compiler line 54)
+- Mode-specific driver prompts not being applied (hardcoded prompt issue)
+
+### Tests
+- 29 total tests
+  - All tests passing
+  - Mode prompt tests updated to match correct format
+
+---
+
 ## [0.2.0] - 2025-12-29 - Feature Completeness & Watch Mode (URGENT)
 
 ### Added

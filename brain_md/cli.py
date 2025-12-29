@@ -5,6 +5,7 @@ from pathlib import Path
 from rich.console import Console
 
 from brain_md.compiler import compile_brain
+from brain_md.boot import boot_cmd as boot_cmd_func
 from brain_md.watcher import BrainWatcher
 
 app = typer.Typer(
@@ -71,12 +72,61 @@ def compile_cmd(
         raise typer.Exit(1)
 
 
-@app.command("version")
-def version_cmd():
-    """Show version information."""
-    from brain_md import __version__
+@app.command("boot")
+def boot_cmd(
+    source: Path = typer.Argument(
+        Path("brain.md"),
+        help="Path to brain.md source file",
+    ),
+):
+    """Initialize a session by creating context.md (Dashboard)."""
+    boot_cmd_func(source)
 
-    console.print(f"brain-md v{__version__}")
+
+@app.command("flush")
+def flush_cmd(
+    source: Path = typer.Argument(
+        Path("brain.md"),
+        help="Flush context stack - mark tasks/notes/registers as complete",
+    ),
+    pointers: bool = typer.Option(
+        False,
+        "--pointers",
+        "-p",
+        help="Clear all pointer contexts (LIFO order)",
+    ),
+    notes: bool = typer.Option(
+        False,
+        "--notes",
+        "-n",
+        help="Clear all note entries",
+    ),
+    registers: bool = typer.Option(
+        False,
+        "--registers",
+        "-r",
+        help="Clear all registers",
+    ),
+    all: bool = typer.Option(
+        False,
+        "--all",
+        "-a",
+        help="Flush everything (stack + all entries)",
+    ),
+    force: bool = typer.Option(
+        False,
+        "--force",
+        "-f",
+        help="Force flush even if stack is empty",
+    ),
+):
+    """Flush context stack - mark tasks/notes/registers as complete."""
+    if not source.exists():
+        console.print(f"[red]✗ Source file not found:[/red] {source}")
+        raise typer.Exit(1)
+
+    console.print("[yellow]⚠ Flush command not yet implemented[/yellow]")
+    console.print("[dim]This will be available in v0.4.0[/dim]")
 
 
 @app.command("watch")

@@ -4,7 +4,8 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://img.shields.io/badge/python-3.10+-blue.svg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://img.shields.io/badge/license-MIT-green.svg))
-[![Version: 0.2.0](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://img.shields.io/badge/version-0.2.0-blue.svg)
+[![Version: 0.3.0](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://img.shields.io/badge/version-0.3.0-blue.svg)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://akshaydoozie.github.io/brain-md/)
 
 Brain.md is a CLI tool that compiles human-readable `brain.md` files into token-optimized TOON (Token-Oriented Object Notation) payloads for injection into Large Language Model (LLM) context windows.
 
@@ -12,10 +13,12 @@ Brain.md is a CLI tool that compiles human-readable `brain.md` files into token-
 
 - **TOON Parser**: Full-featured parser supporting sections, key-value pairs, tabular arrays, and heredocs
 - **Pointer Resolution**: Automatically resolves and injects external file references
+- **Live Context Management**: `brain boot` creates editable context.md for session state
 - **Watch Mode**: Auto-recompiles on file changes with debouncing and OS notifications
 - **Token Budget Enforcement**: Ensures payloads stay within specified token limits
 - **Mode-Specific Prompts**: Supports Strict, Creative, and Analysis driver prompt modes
 - **Comment Stripping**: Removes comments from final payload while preserving in source files
+- **State, Not History**: Manages live RAM state (context.md), not chat history
 
 ## Installation
 
@@ -47,17 +50,84 @@ EOF'
 # Create a reference file
 echo "CREATE TABLE users (id INT PRIMARY KEY);" > schema.sql
 
-# Compile to clipboard
+# Boot a session (creates context.md with SESSION_SCRATCHPAD)
+brain boot brain.md
+
+# Watch for changes (auto-compiles context.md to clipboard)
+brain watch context.md
+
+# Or compile directly
 brain compile brain.md --clipboard
-
-# Compile to file
-brain compile brain.md --output context.toon
-
-# Watch for changes
-brain watch brain.md
 ```
 
 ## Commands
+
+### brain boot
+
+Initialize a session by creating `context.md` from `brain.md`.
+
+```bash
+# Usage
+brain boot <source>
+
+# Features
+- Creates live, editable context.md file
+- Preserves all TOON sections (KERNEL, REGISTERS, MEMORY_POINTERS, PROCESS_STACK)
+- Adds SESSION_SCRATCHPAD for live session notes
+- Generates session metadata (timestamp, source file)
+- Works seamlessly with watch mode
+```
+
+**Example**:
+
+```bash
+# Boot a session
+brain boot brain.md
+
+# Output
+✔ Session boot successful
+   Source: brain.md
+   Context: context.md
+   Tokens: 360
+   Pointers Resolved: 2
+
+💡 Tip: Run 'brain watch' to monitor context.md for live compilation
+```
+
+**context.md Structure**:
+
+```yaml
+# context.md - Live Session State
+# Generated from brain.md by 'brain boot' command
+
+# === KERNEL (AI Configuration) ===
+KERNEL:
+  role: "Senior Developer"
+  mode: "Strict/Code-Only"
+
+# === REGISTERS (Session Variables) ===
+REGISTERS:
+  project: "my-project"
+
+# === MEMORY_POINTERS (External References) ===
+MEMORY_POINTERS[1]{type, path}:
+  file, "@schema.sql"
+
+# === PROCESS_STACK (Task Queue) ===
+PROCESS_STACK[1]{priority, task}:
+  1, "Initial task"
+
+# === SESSION_SCRATCHPAD (Live Notes) ===
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+```
 
 ### brain compile
 
@@ -386,14 +456,16 @@ brain-md/
 │   ├── __init__.py
 │   ├── cli.py              # CLI entry point
 │   ├── compiler.py          # Core compilation logic
-│   ├── parser.py             # TOON format parser
-│   ├── pointer.py            # Pointer resolution
-│   ├── watcher.py            # File system monitoring
-│   ├── tokens.py             # Token estimation
-│   └── models.py             # Data models
-├── spec/                    # Format specifications
-├── examples/                # Example brain.md files
-└── templates/               # Starter templates
+│   ├── boot.py             # Session initialization (creates context.md)
+│   ├── parser.py           # TOON format parser
+│   ├── pointer.py          # Pointer resolution
+│   ├── watcher.py          # File system monitoring
+│   ├── tokens.py           # Token estimation
+│   └── models.py           # Data models
+├── docs/                   # Sphinx documentation
+├── spec/                   # Format specifications
+├── examples/               # Example brain.md files
+└── templates/              # Starter templates
 ```
 
 ## Contributing

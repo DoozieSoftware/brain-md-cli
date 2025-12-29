@@ -95,7 +95,9 @@ def test_default_mode_prompt():
         result = compile_brain(temp_path)
 
         # Should contain standard prompt (not mode-specific)
-        assert "``` denotes raw file content. EXECUTE `PROCESS_STACK`" in result.payload
+        assert (
+            "`>>>` denotes raw file content. EXECUTE `PROCESS_STACK`" in result.payload
+        )
         assert "STRICT MODE" not in result.payload
         assert "CREATIVE MODE" not in result.payload
         assert "ANALYSIS MODE" not in result.payload
@@ -121,7 +123,9 @@ def test_no_mode_prompt():
         result = compile_brain(temp_path)
 
         # Should contain standard prompt
-        assert "``` denotes raw file content. EXECUTE `PROCESS_STACK`" in result.payload
+        assert (
+            "`>>>` denotes raw file content. EXECUTE `PROCESS_STACK`" in result.payload
+        )
         # Driver prompt should be at the start
         lines = result.payload.split("\n")
         assert lines[0].startswith("SYSTEM RESET")
