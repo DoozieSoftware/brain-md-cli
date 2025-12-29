@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 from brain_md.models import BrainConfig, CompileResult, CompileError, ResolvedPointer
-from brain_md.parser import parse_toon
+from brain_md.parser import parse_toon, strip_comments
 from brain_md.tokens import estimate_tokens
 
 
@@ -82,8 +82,13 @@ def compile_brain(source: Path) -> CompileResult:
     # Add driver prompt header
     driver = "SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.\n\n"
 
+    # Strip comments from final payload (but keep in source file for editing)
+    lines = content.splitlines()
+    stripped_lines = strip_comments(lines)
+    stripped_content = "\n".join(stripped_lines)
+
     # Assemble final payload
-    payload = driver + content + appendix
+    payload = driver + stripped_content + appendix
 
     # Estimate token count
     token_count = estimate_tokens(payload)
