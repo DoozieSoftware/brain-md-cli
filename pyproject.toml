@@ -1,0 +1,30 @@
+[project]
+name = "brain-md"
+version = "0.1.0"
+description = "Context Control Protocol for LLMs - Stateless RAM Model"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "tiktoken>=0.5.0",
+    "pyperclip>=1.8.0",
+    "watchdog>=3.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "hypothesis>=6.0.0",
+]
+
+[project.scripts]
+brain = "brain_md.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["brain_md"]
