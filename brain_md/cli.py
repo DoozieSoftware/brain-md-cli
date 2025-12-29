@@ -5,6 +5,7 @@ from pathlib import Path
 from rich.console import Console
 
 from brain_md.compiler import compile_brain
+from brain_md.watcher import BrainWatcher
 
 app = typer.Typer(
     name="brain",
@@ -76,6 +77,62 @@ def version_cmd():
     from brain_md import __version__
 
     console.print(f"brain-md v{__version__}")
+
+
+@app.command("watch")
+def watch_cmd(
+    source: Path = typer.Argument(
+        Path("brain.md"),
+        help="Path to brain.md source file",
+    ),
+):
+    """Watch brain.md and referenced files for changes, auto-recompiling."""
+    if not source.exists():
+        console.print(f"[red]✗ Source file not found:[/red] {source}")
+        raise typer.Exit(1)
+
+    console.print(f"[cyan]👀 Watching {source}...[/cyan]")
+    console.print("[dim]Press Ctrl+C to stop[/dim]\n")
+
+    def on_notification(title: str, message: str):
+        """Handle notifications during watch mode."""
+        if "failed" in title.lower():
+            console.print(f"[red]✗ {title}:[/red] {message}")
+        else:
+            console.print(f"[green]✔ {title}:[/green] {message}")
+
+    def on_change(source_path: Path):
+        """Callback when files change."""
+        # Compile and auto-copy to clipboard
+        watcher.compile_and_notify(output_to_clipboard=True)
+
+    # Create and start watcher
+    watcher = BrainWatcher(
+        source=source,
+        on_change=on_change,
+        notification_callback=on_notification,
+    )
+
+    try:
+        watcher.start()
+        # Initial compilation
+        watcher.compile_and_notify(output_to_clipboard=True)
+
+        # Keep running until interrupted
+        import signal
+        import sys
+
+        def signal_handler(sig, frame):
+            console.print("\n[dim]Stopping watcher...[/dim]")
+            watcher.stop()
+            sys.exit(0)
+
+        signal.signal(signal.SIGINT, signal_handler)
+        signal.pause()
+
+    except Exception as e:
+        console.print(f"[red]✗ Watcher error:[/red] {e}")
+        raise typer.Exit(1)
 
 
 if __name__ == "__main__":
