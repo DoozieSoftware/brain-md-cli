@@ -42,6 +42,9 @@ def compile_brain(source: Path) -> CompileResult:
         raw_content=content,
     )
 
+    # Validate parsed structure
+    validate_brain_config(brain_config)
+
     # Find all @pointer references (quoted strings starting with @)
     pointer_pattern = r'"@([^"]+)"'
     resolved_pointers: list[ResolvedPointer] = []
@@ -128,3 +131,39 @@ def parse_pointer(pointer: str) -> tuple[str, tuple[int, int] | None]:
             pass
 
     return pointer, None
+
+def validate_brain_config(config: BrainConfig) -> None:
+    """
+    Validate BrainConfig structure and raise errors if malformed.
+
+    Checks:
+    - KERNEL and REGISTERS are dictionaries (key-value pairs)
+    - MEMORY_POINTERS and PROCESS_STACK are lists (tabular arrays)
+
+    Raises:
+        ParseError: If structure is invalid
+    """
+    # Validate KERNEL structure
+    if config.kernel and not isinstance(config.kernel, dict):
+        raise ParseError("KERNEL section must contain key-value pairs")
+
+    # Validate REGISTERS structure
+    if config.registers and not isinstance(config.registers, dict):
+        raise ParseError("REGISTERS section must contain key-value pairs")
+
+    # Validate MEMORY_POINTERS structure
+    if config.memory_pointers and not isinstance(config.memory_pointers, list):
+        raise ParseError("MEMORY_POINTERS must be a tabular array")
+
+    # Validate PROCESS_STACK structure
+    if config.process_stack and not isinstance(config.process_stack, list):
+        raise ParseError("PROCESS_STACK must be a tabular array")
+
+    # Validate tabular array items are dictionaries
+    for item in config.memory_pointers:
+        if not isinstance(item, dict):
+            raise ParseError("MEMORY_POINTERS rows must be key-value pairs")
+
+    for item in config.process_stack:
+        if not isinstance(item, dict):
+            raise ParseError("PROCESS_STACK rows must be key-value pairs")
