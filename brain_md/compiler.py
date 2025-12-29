@@ -106,6 +106,12 @@ def compile_brain(source: Path) -> CompileResult:
         else:
             token_budget = budget_value
 
+    # Enforce token budget if specified
+    if token_budget is not None and token_count > token_budget:
+        from brain_md.models import BudgetExceededError
+
+        raise BudgetExceededError(actual=token_count, budget=token_budget)
+
     return CompileResult(
         payload=payload,
         token_count=token_count,
@@ -131,6 +137,7 @@ def parse_pointer(pointer: str) -> tuple[str, tuple[int, int] | None]:
             pass
 
     return pointer, None
+
 
 def validate_brain_config(config: BrainConfig) -> None:
     """
