@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOON Format &mdash; Brain.md 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced Usage" href="advanced_usage.html" />
+    <link rel="prev" title="CLI Commands" href="commands.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Brain.md
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">CLI Commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TOON Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sections">Sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-value-pairs">Key-Value Pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabular-arrays">Tabular Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pointers">Pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#heredocs">Heredocs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comments">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reserved-sections">Reserved Sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#indentation">Indentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#string-values">String Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#complete-example">Complete Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Brain.md</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">TOON Format</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/toon_format.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="toon-format">
+<h1>TOON Format<a class="headerlink" href="#toon-format" title="Link to this heading"></a></h1>
+<p>TOON (Token-Oriented Object Notation) is a text format optimized for minimal token usage while maintaining human readability.</p>
+<section id="sections">
+<h2>Sections<a class="headerlink" href="#sections" title="Link to this heading"></a></h2>
+<p>TOON uses uppercase headers followed by a colon to define sections.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">KERNEL</span><span class="p">:</span>
+<span class="nt">REGISTERS</span><span class="p">:</span>
+<span class="nt">MEMORY_POINTERS</span><span class="p">:</span>
+<span class="nt">PROCESS_STACK</span><span class="p">:</span>
+<span class="nt">SESSION_SCRATCHPAD</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="key-value-pairs">
+<h2>Key-Value Pairs<a class="headerlink" href="#key-value-pairs" title="Link to this heading"></a></h2>
+<p>Indented under headers with two-space indent.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">KERNEL</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Senior</span><span class="nv"> </span><span class="s">Developer&quot;</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Strict/Code-Only&quot;</span>
+<span class="w">  </span><span class="nt">token_budget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
+</pre></div>
+</div>
+</section>
+<section id="tabular-arrays">
+<h2>Tabular Arrays<a class="headerlink" href="#tabular-arrays" title="Link to this heading"></a></h2>
+<p>High-density lists that define keys once to save tokens.</p>
+<p><strong>Format</strong>: <code class="docutils literal notranslate"><span class="pre">SECTION_NAME[count]{key1,</span> <span class="pre">key2,</span> <span class="pre">...}:</span></code></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[2]{type, path, description}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@schema.sql&quot;, &quot;Database schema&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@api.py&quot;, &quot;API endpoints&quot;</span>
+</pre></div>
+</div>
+<p>Equivalent JSON:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;MEMORY_POINTERS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@schema.sql&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Database schema&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@api.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;API endpoints&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="pointers">
+<h2>Pointers<a class="headerlink" href="#pointers" title="Link to this heading"></a></h2>
+<p>Strings prefixed with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> reference external files.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[1]{type, path}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@config.py&quot;</span>
+</pre></div>
+</div>
+<p>With line ranges:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[1]{type, path}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@app.py:10-50&quot;</span>
+</pre></div>
+</div>
+<p>This injects only lines 10-50 from <code class="docutils literal notranslate"><span class="pre">app.py</span></code> into the compiled payload.</p>
+</section>
+<section id="heredocs">
+<h2>Heredocs<a class="headerlink" href="#heredocs" title="Link to this heading"></a></h2>
+<p>Raw text blocks delimited by <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span></code>. No escaping required.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[1]{type, path, description}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@query.sql&quot;, &quot;SQL query&quot;</span>
+</pre></div>
+</div>
+<p><strong>query.sql</strong>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">user_id</span>
+<span class="o">&lt;&lt;&lt;</span>
+</pre></div>
+</div>
+<p>Heredocs are preserved as-is in the final payload.</p>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Link to this heading"></a></h2>
+<p>Lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code> are comments and are stripped from final compiled payload, but preserved in source file for editing.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a comment and will be stripped from compiled output</span>
+<span class="nt">KERNEL</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Developer&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="reserved-sections">
+<h2>Reserved Sections<a class="headerlink" href="#reserved-sections" title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Section | Purpose |</div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|---------|</span></a>———|
+| <code class="docutils literal notranslate"><span class="pre">KERNEL:</span></code> | Core AI configuration (role, mode, constraints) |
+| <code class="docutils literal notranslate"><span class="pre">REGISTERS:</span></code> | Session variables (paths, phase, state) |
+| <code class="docutils literal notranslate"><span class="pre">MEMORY_POINTERS:</span></code> | External file references |
+| <code class="docutils literal notranslate"><span class="pre">PROCESS_STACK:</span></code> | Prioritized task queue |
+| <code class="docutils literal notranslate"><span class="pre">SESSION_SCRATCHPAD:</span></code> | Live session notes (created by boot) |
+| <code class="docutils literal notranslate"><span class="pre">RESOLVED_MEMORY:</span></code> | Compiler-generated section with injected file contents |</p>
+</section>
+<section id="indentation">
+<h2>Indentation<a class="headerlink" href="#indentation" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Two spaces per level (no tabs)</p></li>
+<li><p>Tabular array rows are indented once under the header</p></li>
+<li><p>Heredoc content is NOT indented</p></li>
+</ul>
+</section>
+<section id="string-values">
+<h2>String Values<a class="headerlink" href="#string-values" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Quoted strings: <code class="docutils literal notranslate"><span class="pre">&quot;value</span> <span class="pre">with</span> <span class="pre">spaces&quot;</span></code></p></li>
+<li><p>Unquoted allowed for single words: <code class="docutils literal notranslate"><span class="pre">mode:</span> <span class="pre">strict</span></code></p></li>
+<li><p>Pointers must be quoted: <code class="docutils literal notranslate"><span class="pre">&quot;&#64;file.md&quot;</span></code></p></li>
+</ul>
+</section>
+<section id="complete-example">
+<h2>Complete Example<a class="headerlink" href="#complete-example" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># brain.md (TOON Format)</span>
+
+<span class="nt">KERNEL</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Senior</span><span class="nv"> </span><span class="s">Architect&quot;</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Strict/Code-Only&quot;</span>
+<span class="w">  </span><span class="nt">token_budget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
+
+<span class="nt">REGISTERS</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">project_root</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./src&quot;</span>
+<span class="w">  </span><span class="nt">current_phase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Migration&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[2]{type, path, description}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@agents.md&quot;, &quot;Team Persona Definitions&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@schema.sql&quot;, &quot;Database Structure&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">PROCESS_STACK[3]{priority, task}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">1, &quot;Analyze Schema for Indexing&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">2, &quot;Draft Migration Script&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">3, &quot;Update Documentation&quot;</span>
+</pre></div>
+</div>
+<p>For the complete TOON specification, see <span class="xref std std-doc">../spec/TOON_SPEC_v1_0</span>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="commands.html" class="btn btn-neutral float-left" title="CLI Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="advanced_usage.html" class="btn btn-neutral float-right" title="Advanced Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, akshaydoozie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

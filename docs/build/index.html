@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brain.md - Context Control Protocol for LLMs &mdash; Brain.md 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start Guide" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Brain.md
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">CLI Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toon_format.html">TOON Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Brain.md</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Brain.md - Context Control Protocol for LLMs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="brain-md-context-control-protocol-for-llms">
+<h1>Brain.md - Context Control Protocol for LLMs<a class="headerlink" href="#brain-md-context-control-protocol-for-llms" title="Link to this heading"></a></h1>
+<p>Brain.md is a CLI tool that compiles human-readable <code class="docutils literal notranslate"><span class="pre">brain.md</span></code> files into token-optimized TOON (Token-Oriented Object Notation) payloads for injection into Large Language Model (LLM) context windows.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-workflow">Basic Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#example-session">Example Session</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#tips-for-effective-use">Tips for Effective Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">CLI Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#brain-boot">brain boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#brain-compile">brain compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#brain-watch">brain watch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#brain-flush">brain flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="toon_format.html">TOON Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#sections">Sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#key-value-pairs">Key-Value Pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#tabular-arrays">Tabular Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#pointers">Pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#heredocs">Heredocs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#comments">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#reserved-sections">Reserved Sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#indentation">Indentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#string-values">String Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toon_format.html#complete-example">Complete Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#token-budget-enforcement">Token Budget Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#mode-specific-driver-prompts">Mode-Specific Driver Prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#multiple-pointers-with-line-ranges">Multiple Pointers with Line Ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#state-management-vs-chat-history">State Management vs Chat History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#watch-mode-with-dynamic-pointers">Watch Mode with Dynamic Pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#using-heredocs-for-source-code">Using Heredocs for Source Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#comment-stripping-strategy">Comment Stripping Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#debugging-compilation">Debugging Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#integration-with-llms">Integration with LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>TOON Parser</strong>: Full-featured parser supporting sections, key-value pairs, tabular arrays, and heredocs</p></li>
+<li><p><strong>Pointer Resolution</strong>: Automatically resolves and injects external file references</p></li>
+<li><p><strong>Live Context Management</strong>: <code class="docutils literal notranslate"><span class="pre">brain</span> <span class="pre">boot</span></code> creates editable context.md for session state</p></li>
+<li><p><strong>Watch Mode</strong>: Auto-recompiles on file changes with debouncing and OS notifications</p></li>
+<li><p><strong>Token Budget Enforcement</strong>: Ensures payloads stay within specified token limits</p></li>
+<li><p><strong>Mode-Specific Prompts</strong>: Supports Strict, Creative, and Analysis driver prompt modes</p></li>
+<li><p><strong>Comment Stripping</strong>: Removes comments from final payload while preserving in source files</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a brain.md file</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>brain.md<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">KERNEL:</span>
+<span class="s">  role: &quot;Senior Developer&quot;</span>
+<span class="s">  mode: &quot;Strict/Code-Only&quot;</span>
+<span class="s">  token_budget: 4000</span>
+
+<span class="s">MEMORY_POINTERS[1]{type, path, description}:</span>
+<span class="s">  file, &quot;@schema.sql&quot;, &quot;Database schema&quot;</span>
+<span class="s">EOF</span><span class="err">&#39;</span>
+
+<span class="c1"># Boot a session (creates context.md with SESSION_SCRATCHPAD)</span>
+brain<span class="w"> </span>boot<span class="w"> </span>brain.md
+
+<span class="c1"># Watch for changes</span>
+brain<span class="w"> </span>watch<span class="w"> </span>context.md
+</pre></div>
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+<section id="module-brain_md">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-brain_md" title="Link to this heading"></a></h1>
+<p>Brain.md - Context Control Protocol for LLMs.</p>
+<p id="module-brain_md.compiler">TOON Compiler - Resolves &#64;pointers and assembles payload.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.compiler.compile_brain">
+<span class="sig-prename descclassname"><span class="pre">brain_md.compiler.</span></span><span class="sig-name descname"><span class="pre">compile_brain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#brain_md.models.CompileResult" title="brain_md.models.CompileResult"><span class="pre">CompileResult</span></a></span></span><a class="reference internal" href="_modules/brain_md/compiler.html#compile_brain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.compiler.compile_brain" title="Link to this definition"></a></dt>
+<dd><p>Compile a brain.md file into a TOON payload.</p>
+<ol class="arabic simple">
+<li><p>Parse the source file using TOON parser</p></li>
+<li><p>Extract configuration from KERNEL section</p></li>
+<li><p>Detect &#64;pointer references</p></li>
+<li><p>Resolve and inject file contents as appendix</p></li>
+<li><p>Return CompileResult with metadata</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> – Path to brain.md file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>CompileResult with payload, token count, and metadata</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#brain_md.models.CompileError" title="brain_md.models.CompileError"><strong>CompileError</strong></a> – If compilation fails or pointers not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.compiler.parse_pointer">
+<span class="sig-prename descclassname"><span class="pre">brain_md.compiler.</span></span><span class="sig-name descname"><span class="pre">parse_pointer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/brain_md/compiler.html#parse_pointer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.compiler.parse_pointer" title="Link to this definition"></a></dt>
+<dd><p>Parse a pointer string into path and optional line range.</p>
+<p class="rubric">Examples</p>
+<p>“schema.sql” -&gt; (“schema.sql”, None)
+“schema.sql:20-50” -&gt; (“schema.sql”, (20, 50))</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.compiler.generate_driver_prompt">
+<span class="sig-prename descclassname"><span class="pre">brain_md.compiler.</span></span><span class="sig-name descname"><span class="pre">generate_driver_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/brain_md/compiler.html#generate_driver_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.compiler.generate_driver_prompt" title="Link to this definition"></a></dt>
+<dd><p>Generate mode-specific driver prompt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kernel</strong> – KERNEL section dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Driver prompt string based on mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.compiler.validate_brain_config">
+<span class="sig-prename descclassname"><span class="pre">brain_md.compiler.</span></span><span class="sig-name descname"><span class="pre">validate_brain_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#brain_md.models.BrainConfig" title="brain_md.models.BrainConfig"><span class="pre">BrainConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/brain_md/compiler.html#validate_brain_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.compiler.validate_brain_config" title="Link to this definition"></a></dt>
+<dd><p>Validate BrainConfig structure and raise errors if malformed.</p>
+<p>Checks:
+- KERNEL and REGISTERS are dictionaries (key-value pairs)
+- MEMORY_POINTERS and PROCESS_STACK are lists (tabular arrays)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#brain_md.models.ParseError" title="brain_md.models.ParseError"><strong>ParseError</strong></a> – If structure is invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-brain_md.parser">TOON Parser - Token-Oriented Object Notation parser.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.parser.parse_toon">
+<span class="sig-prename descclassname"><span class="pre">brain_md.parser.</span></span><span class="sig-name descname"><span class="pre">parse_toon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/brain_md/parser.html#parse_toon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.parser.parse_toon" title="Link to this definition"></a></dt>
+<dd><p>Parse TOON formatted content into a dictionary.</p>
+<p>Handles:
+- SECTION: headers
+- key: value pairs with two-space indentation
+- # comments (stripped)
+- SECTION[n]{keys}: tabular arrays
+- &gt;&gt;&gt;…&lt;&lt;&lt; heredoc blocks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with section names as keys</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#brain_md.models.ParseError" title="brain_md.models.ParseError"><strong>ParseError</strong></a> – If content is malformed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.parser.strip_comments">
+<span class="sig-prename descclassname"><span class="pre">brain_md.parser.</span></span><span class="sig-name descname"><span class="pre">strip_comments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/brain_md/parser.html#strip_comments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.parser.strip_comments" title="Link to this definition"></a></dt>
+<dd><p>Remove comment lines from TOON content.</p>
+<p>Lines starting with # (after optional whitespace) are comments.
+Heredoc delimiters (&gt;&gt;&gt;, &lt;&lt;&lt;) are not treated as comments.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.parser.parse_value">
+<span class="sig-prename descclassname"><span class="pre">brain_md.parser.</span></span><span class="sig-name descname"><span class="pre">parse_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></span><a class="reference internal" href="_modules/brain_md/parser.html#parse_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.parser.parse_value" title="Link to this definition"></a></dt>
+<dd><p>Parse a TOON value string.</p>
+<ul class="simple">
+<li><p>Quoted strings: remove quotes</p></li>
+<li><p>Integers: convert to int</p></li>
+<li><p>Unquoted: return as-is</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.parser.parse_tabular_row">
+<span class="sig-prename descclassname"><span class="pre">brain_md.parser.</span></span><span class="sig-name descname"><span class="pre">parse_tabular_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/brain_md/parser.html#parse_tabular_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.parser.parse_tabular_row" title="Link to this definition"></a></dt>
+<dd><p>Parse a comma-separated row from a tabular array.</p>
+<p>Handles quoted values with commas inside.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.parser.parse_tabular_array">
+<span class="sig-prename descclassname"><span class="pre">brain_md.parser.</span></span><span class="sig-name descname"><span class="pre">parse_tabular_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/brain_md/parser.html#parse_tabular_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.parser.parse_tabular_array" title="Link to this definition"></a></dt>
+<dd><p>Parse a tabular array into a list of dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> – The header line like “SECTION[n]{key1, key2}:”</p></li>
+<li><p><strong>rows</strong> – List of comma-separated value rows</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries with keys from header</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#brain_md.models.ParseError" title="brain_md.models.ParseError"><strong>ParseError</strong></a> – If header format is invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-brain_md.pointer">Pointer resolution module for brain.md compiler.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.pointer.parse_pointer">
+<span class="sig-prename descclassname"><span class="pre">brain_md.pointer.</span></span><span class="sig-name descname"><span class="pre">parse_pointer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/brain_md/pointer.html#parse_pointer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.pointer.parse_pointer" title="Link to this definition"></a></dt>
+<dd><p>Parse a pointer string into path and optional line range.</p>
+<p class="rubric">Examples</p>
+<p>“schema.sql” -&gt; (“schema.sql”, None)
+“schema.sql:20-50” -&gt; (“schema.sql”, (20, 50))</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.pointer.resolve_pointer">
+<span class="sig-prename descclassname"><span class="pre">brain_md.pointer.</span></span><span class="sig-name descname"><span class="pre">resolve_pointer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#brain_md.models.ResolvedPointer" title="brain_md.models.ResolvedPointer"><span class="pre">ResolvedPointer</span></a></span></span><a class="reference internal" href="_modules/brain_md/pointer.html#resolve_pointer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.pointer.resolve_pointer" title="Link to this definition"></a></dt>
+<dd><p>Resolve a pointer reference to file content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointer</strong> – The pointer string (e.g., “&#64;file.txt” or “&#64;file.txt:20-50”)</p></li>
+<li><p><strong>base_dir</strong> – Base directory for resolving relative paths</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ResolvedPointer with original, path, and content</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#brain_md.models.CompileError" title="brain_md.models.CompileError"><strong>CompileError</strong></a> – If pointer target file not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.pointer.extract_pointers">
+<span class="sig-prename descclassname"><span class="pre">brain_md.pointer.</span></span><span class="sig-name descname"><span class="pre">extract_pointers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/brain_md/pointer.html#extract_pointers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.pointer.extract_pointers" title="Link to this definition"></a></dt>
+<dd><p>Extract all &#64;pointer references from content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>content</strong> – The text content to search</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of pointer strings (without &#64; prefix)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-brain_md.watcher">File watcher for automatic recompilation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainFileHandler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.watcher.</span></span><span class="sig-name descname"><span class="pre">BrainFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debounce_seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainFileHandler" title="Link to this definition"></a></dt>
+<dd><p>Handler for file modification events.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainFileHandler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debounce_seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainFileHandler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainFileHandler.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize file handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> – Function to call when file changes</p></li>
+<li><p><strong>debounce_seconds</strong> – Minimum time between callbacks</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainFileHandler.on_modified">
+<span class="sig-name descname"><span class="pre">on_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainFileHandler.on_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainFileHandler.on_modified" title="Link to this definition"></a></dt>
+<dd><p>Handle file modification events.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainFileHandler.trigger_callback_if_pending">
+<span class="sig-name descname"><span class="pre">trigger_callback_if_pending</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainFileHandler.trigger_callback_if_pending"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainFileHandler.trigger_callback_if_pending" title="Link to this definition"></a></dt>
+<dd><p>Trigger callback if there are pending changes and debounce time has passed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainWatcher">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.watcher.</span></span><span class="sig-name descname"><span class="pre">BrainWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_change</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notification_callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainWatcher" title="Link to this definition"></a></dt>
+<dd><p>Watches brain.md and referenced files for changes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainWatcher.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_change</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notification_callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainWatcher.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainWatcher.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize brain watcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – Path to brain.md file</p></li>
+<li><p><strong>on_change</strong> – Callback when any file changes, receives source path</p></li>
+<li><p><strong>notification_callback</strong> – Callback for OS notifications (title, message)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainWatcher.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainWatcher.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainWatcher.start" title="Link to this definition"></a></dt>
+<dd><p>Start watching files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainWatcher.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainWatcher.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainWatcher.stop" title="Link to this definition"></a></dt>
+<dd><p>Stop watching files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.watcher.BrainWatcher.compile_and_notify">
+<span class="sig-name descname"><span class="pre">compile_and_notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_to_clipboard</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/brain_md/watcher.html#BrainWatcher.compile_and_notify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.watcher.BrainWatcher.compile_and_notify" title="Link to this definition"></a></dt>
+<dd><p>Compile brain.md and send notification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_to_clipboard</strong> – If True, copy to clipboard</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if compilation succeeded, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-brain_md.boot">Boot command - Creates context.md from brain.md.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="brain_md.boot.boot_cmd">
+<span class="sig-prename descclassname"><span class="pre">brain_md.boot.</span></span><span class="sig-name descname"><span class="pre">boot_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('brain.md')</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/brain_md/boot.html#boot_cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.boot.boot_cmd" title="Link to this definition"></a></dt>
+<dd><p>Initialize a session by creating context.md (Dashboard).</p>
+<p>This creates a live, editable context file from the source brain.md.
+The context.md serves as the working RAM during a session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> – Path to brain.md source file (default: brain.md)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-brain_md.models">Data models and exceptions for Brain.md CLI.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="brain_md.models.BrainError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">BrainError</span></span><a class="reference internal" href="_modules/brain_md/models.html#BrainError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.BrainError" title="Link to this definition"></a></dt>
+<dd><p>Base exception for brain-md.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="brain_md.models.CompileError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">CompileError</span></span><a class="reference internal" href="_modules/brain_md/models.html#CompileError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.CompileError" title="Link to this definition"></a></dt>
+<dd><p>Compilation failed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="brain_md.models.PointerError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">PointerError</span></span><a class="reference internal" href="_modules/brain_md/models.html#PointerError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.PointerError" title="Link to this definition"></a></dt>
+<dd><p>Pointer resolution failed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="brain_md.models.ParseError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">ParseError</span></span><a class="reference internal" href="_modules/brain_md/models.html#ParseError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.ParseError" title="Link to this definition"></a></dt>
+<dd><p>TOON parsing failed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="brain_md.models.BudgetExceededError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">BudgetExceededError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/models.html#BudgetExceededError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.BudgetExceededError" title="Link to this definition"></a></dt>
+<dd><p>Payload exceeds token budget.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.models.BudgetExceededError.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/models.html#BudgetExceededError.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.BudgetExceededError.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brain_md.models.PointerSpec">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">PointerSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/models.html#PointerSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.PointerSpec" title="Link to this definition"></a></dt>
+<dd><p>Parsed pointer reference.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.models.PointerSpec.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#brain_md.models.PointerSpec.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brain_md.models.ResolvedPointer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">ResolvedPointer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/models.html#ResolvedPointer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.ResolvedPointer" title="Link to this definition"></a></dt>
+<dd><p>Resolved pointer with content.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.models.ResolvedPointer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#brain_md.models.ResolvedPointer.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brain_md.models.BrainConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">BrainConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel:</span> <span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registers:</span> <span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_pointers:</span> <span class="pre">list[dict]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_stack:</span> <span class="pre">list[dict]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_content:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/models.html#BrainConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.BrainConfig" title="Link to this definition"></a></dt>
+<dd><p>Parsed brain.md configuration.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.models.BrainConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel:</span> <span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registers:</span> <span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_pointers:</span> <span class="pre">list[dict]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_stack:</span> <span class="pre">list[dict]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_content:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#brain_md.models.BrainConfig.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brain_md.models.CompileResult">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brain_md.models.</span></span><span class="sig-name descname"><span class="pre">CompileResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_count:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolved_pointers:</span> <span class="pre">list[~brain_md.models.ResolvedPointer]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_budget:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/brain_md/models.html#CompileResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brain_md.models.CompileResult" title="Link to this definition"></a></dt>
+<dd><p>Compilation output.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brain_md.models.CompileResult.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_count:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolved_pointers:</span> <span class="pre">list[~brain_md.models.ResolvedPointer]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_budget:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#brain_md.models.CompileResult.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, akshaydoozie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
