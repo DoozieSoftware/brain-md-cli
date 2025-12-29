@@ -5,7 +5,6 @@ from pathlib import Path
 from rich.console import Console
 
 from brain_md.compiler import compile_brain
-from brain_md.tokens import estimate_tokens
 
 app = typer.Typer(
     name="brain",
@@ -23,11 +22,15 @@ def compile_cmd(
         help="Path to brain.md source file",
     ),
     clipboard: bool = typer.Option(
-        False, "--clipboard", "-c",
+        False,
+        "--clipboard",
+        "-c",
         help="Copy output to system clipboard",
     ),
     output: Path | None = typer.Option(
-        None, "--output", "-o",
+        None,
+        "--output",
+        "-o",
         help="Write output to file instead of stdout",
     ),
 ):
@@ -37,19 +40,30 @@ def compile_cmd(
         raise typer.Exit(1)
 
     try:
-        payload = compile_brain(source)
-        token_count = estimate_tokens(payload)
+        result = compile_brain(source)
+
+        payload = result.payload
+        token_count = result.token_count
+        resolved_count = len(result.resolved_pointers)
 
         if output:
             output.write_text(payload)
-            console.print(f"[green]✔ Written to {output}[/green] ({token_count:,} tokens)")
+            console.print(
+                f"[green]✔ Written to {output}[/green] ({token_count:,} tokens, {resolved_count} files resolved)"
+            )
         elif clipboard:
             import pyperclip
+
             pyperclip.copy(payload)
-            console.print(f"[green]✔ Copied to clipboard[/green] ({token_count:,} tokens)")
+            console.print(
+                f"[green]✔ Copied to clipboard[/green] ({token_count:,} tokens, {resolved_count} files resolved)"
+            )
         else:
             console.print(payload)
-            console.print(f"\n[dim]({token_count:,} tokens)[/dim]", highlight=False)
+            console.print(
+                f"\n[dim]({token_count:,} tokens, {resolved_count} files resolved)[/dim]",
+                highlight=False,
+            )
 
     except Exception as e:
         console.print(f"[red]✗ Compilation failed:[/red] {e}")
@@ -60,6 +74,7 @@ def compile_cmd(
 def version_cmd():
     """Show version information."""
     from brain_md import __version__
+
     console.print(f"brain-md v{__version__}")
 
 
