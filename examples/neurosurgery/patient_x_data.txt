@@ -1,0 +1,6 @@
+PATIENT ID: X-9921
+ANOMALY REPORT:
+- Tumor Location: Right Parietal Lobe, adjacent to Motor Cortex.
+- VASCULAR ANOMALY: The Superior Sagittal Sinus is displaced 4mm medially due to mass effect.
+- ARTERIAL WARNING: Atypical branch of the Middle Cerebral Artery loops *over* the tumor surface (Sector 4).
+- Skull Thickness: 6mm at entry point.
