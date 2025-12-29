@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start Guide &mdash; Brain.md 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CLI Commands" href="commands.html" />
+    <link rel="prev" title="Brain.md - Context Control Protocol for LLMs" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Brain.md
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-workflow">Basic Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-session">Example Session</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-for-effective-use">Tips for Effective Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">CLI Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toon_format.html">TOON Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Brain.md</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start-guide">
+<h1>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading"></a></h1>
+<p>This guide will help you get started with Brain.md in just a few minutes.</p>
+<section id="basic-workflow">
+<h2>Basic Workflow<a class="headerlink" href="#basic-workflow" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Create a brain.md file</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">KERNEL</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Senior</span><span class="nv"> </span><span class="s">Developer&quot;</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Strict/Code-Only&quot;</span>
+<span class="w">  </span><span class="nt">token_budget</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
+
+<span class="nt">REGISTERS</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-app&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[1]{type, path, description}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@schema.sql&quot;, &quot;Database schema&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">PROCESS_STACK[1]{priority, task}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">1, &quot;Optimize queries&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create referenced files</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Boot a session</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brain<span class="w"> </span>boot<span class="w"> </span>brain.md
+</pre></div>
+</div>
+<p>This creates a <code class="docutils literal notranslate"><span class="pre">context.md</span></code> file with all sections plus a new <code class="docutils literal notranslate"><span class="pre">SESSION_SCRATCHPAD</span></code> for live editing.</p>
+</li>
+<li><p><strong>Watch for changes</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brain<span class="w"> </span>watch<span class="w"> </span>context.md
+</pre></div>
+</div>
+<p>Any changes to <code class="docutils literal notranslate"><span class="pre">context.md</span></code> or referenced files will trigger automatic recompilation and copy to clipboard.</p>
+</li>
+</ol>
+</section>
+<section id="example-session">
+<h2>Example Session<a class="headerlink" href="#example-session" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 1: Create your brain.md</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>brain.md<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">KERNEL:</span>
+<span class="s">  role: &quot;Full-Stack Developer&quot;</span>
+<span class="s">  mode: &quot;Creative&quot;</span>
+
+<span class="s">REGISTERS:</span>
+<span class="s">  project: &quot;todo-app&quot;</span>
+
+<span class="s">MEMORY_POINTERS[1]{type, path, description}:</span>
+<span class="s">  file, &quot;@main.py&quot;, &quot;Main application&quot;</span>
+
+<span class="s">PROCESS_STACK[2]{priority, task}:</span>
+<span class="s">  1, &quot;Add authentication&quot;</span>
+<span class="s">  2, &quot;Implement pagination&quot;</span>
+<span class="s">EOF</span><span class="err">&#39;</span>
+
+<span class="c1"># Step 2: Boot session</span>
+brain<span class="w"> </span>boot<span class="w"> </span>brain.md
+<span class="c1"># Output: ✔ Session boot successful...</span>
+
+<span class="c1"># Step 3: Edit context.md SESSION_SCRATCHPAD</span>
+<span class="c1"># Add your session notes, todos, and current focus</span>
+
+<span class="c1"># Step 4: Watch for changes</span>
+brain<span class="w"> </span>watch<span class="w"> </span>context.md
+<span class="c1"># Any edits trigger auto-recompile to clipboard</span>
+
+<span class="c1"># Step 5: Paste clipboard into your LLM interface</span>
+<span class="c1"># The AI receives the complete TOON payload</span>
+</pre></div>
+</div>
+</section>
+<section id="tips-for-effective-use">
+<h2>Tips for Effective Use<a class="headerlink" href="#tips-for-effective-use" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Use the SESSION_SCRATCHPAD</strong>: This is your live RAM - add notes, todos, and current focus during sessions</p></li>
+<li><p><strong>Keep brain.md as source of truth</strong>: Make permanent changes in brain.md, temporary changes in context.md</p></li>
+<li><p><strong>Use watch mode</strong>: Let the tool handle recompilation automatically</p></li>
+<li><p><strong>Leverage pointers</strong>: Reference external files instead of copying content directly</p></li>
+<li><p><strong>Set token budgets</strong>: Prevent context overflow by setting appropriate budgets in KERNEL</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="commands.html"><span class="doc">CLI Commands</span></a> - Learn about all CLI commands</p></li>
+<li><p><a class="reference internal" href="toon_format.html"><span class="doc">TOON Format</span></a> - Understand the TOON format specification</p></li>
+<li><p><a class="reference internal" href="advanced_usage.html"><span class="doc">Advanced Usage</span></a> - Explore advanced features and patterns</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Brain.md - Context Control Protocol for LLMs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="commands.html" class="btn btn-neutral float-right" title="CLI Commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, akshaydoozie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

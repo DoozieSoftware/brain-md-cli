@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI Commands &mdash; Brain.md 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TOON Format" href="toon_format.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Brain.md
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CLI Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#brain-boot">brain boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#brain-compile">brain compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#brain-watch">brain watch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#brain-flush">brain flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="toon_format.html">TOON Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Brain.md</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">CLI Commands</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/commands.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cli-commands">
+<h1>CLI Commands<a class="headerlink" href="#cli-commands" title="Link to this heading"></a></h1>
+<p>This page documents all available CLI commands in Brain.md.</p>
+<section id="brain-boot">
+<h2>brain boot<a class="headerlink" href="#brain-boot" title="Link to this heading"></a></h2>
+<p>Initialize a session by creating <code class="docutils literal notranslate"><span class="pre">context.md</span></code> from <code class="docutils literal notranslate"><span class="pre">brain.md</span></code>.</p>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brain</span> <span class="n">boot</span> <span class="o">&lt;</span><span class="n">source</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><strong>Description</strong>:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">boot</span></code> command creates a live, editable <code class="docutils literal notranslate"><span class="pre">context.md</span></code> file from your source <code class="docutils literal notranslate"><span class="pre">brain.md</span></code>. This is your working RAM during a session.</p>
+<p><strong>Features</strong>:</p>
+<ul class="simple">
+<li><p>Creates live, editable context.md file</p></li>
+<li><p>Preserves all TOON sections (KERNEL, REGISTERS, MEMORY_POINTERS, PROCESS_STACK)</p></li>
+<li><p>Adds SESSION_SCRATCHPAD for live session notes</p></li>
+<li><p>Generates session metadata (timestamp, source file)</p></li>
+<li><p>Verifies compilation success</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brain</span> <span class="n">boot</span> <span class="n">brain</span><span class="o">.</span><span class="n">md</span>
+</pre></div>
+</div>
+<p><strong>Output</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>✔ Session boot successful
+   Source: brain.md
+   Context: context.md
+   Tokens: 360
+   Pointers Resolved: 2
+
+💡 Tip: Run &#39;brain watch&#39; to monitor context.md for live compilation
+</pre></div>
+</div>
+<p><strong>context.md Structure</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># context.md - Live Session State</span>
+<span class="c1"># Generated from brain.md by &#39;brain boot&#39; command</span>
+
+<span class="c1"># === KERNEL (AI Configuration) ===</span>
+<span class="nt">KERNEL</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Senior</span><span class="nv"> </span><span class="s">Developer&quot;</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Strict/Code-Only&quot;</span>
+
+<span class="c1"># === REGISTERS (Session Variables) ===</span>
+<span class="nt">REGISTERS</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-project&quot;</span>
+
+<span class="c1"># === MEMORY_POINTERS (External References) ===</span>
+<span class="l l-Scalar l-Scalar-Plain">MEMORY_POINTERS[1]{type, path}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">file, &quot;@schema.sql&quot;</span>
+
+<span class="c1"># === PROCESS_STACK (Task Queue) ===</span>
+<span class="l l-Scalar l-Scalar-Plain">PROCESS_STACK[1]{priority, task}</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">1, &quot;Initial task&quot;</span>
+
+<span class="c1"># === SESSION_SCRATCHPAD (Live Notes) ===</span>
+<span class="nt">SESSION_SCRATCHPAD</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">session_notes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">    </span><span class="no">Add your session notes here...</span>
+
+<span class="w">  </span><span class="nt">todo_list</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;First</span><span class="nv"> </span><span class="s">thing</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">do&quot;</span>
+
+<span class="w">  </span><span class="nt">current_focus</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">    </span><span class="no">What you&#39;re working on right now...</span>
+</pre></div>
+</div>
+</section>
+<section id="brain-compile">
+<h2>brain compile<a class="headerlink" href="#brain-compile" title="Link to this heading"></a></h2>
+<p>Compiles a brain.md or context.md file into a token-optimized TOON payload.</p>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brain</span> <span class="nb">compile</span> <span class="o">&lt;</span><span class="n">source</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Options</strong>:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--clipboard,</span> <span class="pre">-c</span></code></dt><dd><p>Copy output to system clipboard</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--output,</span> <span class="pre">-o</span> <span class="pre">&lt;path&gt;</span></code></dt><dd><p>Write output to file instead of stdout</p>
+</dd>
+</dl>
+<p><strong>Examples</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compile to stdout</span>
+<span class="n">brain</span> <span class="nb">compile</span> <span class="n">brain</span><span class="o">.</span><span class="n">md</span>
+
+<span class="c1"># Compile to clipboard</span>
+<span class="n">brain</span> <span class="nb">compile</span> <span class="n">brain</span><span class="o">.</span><span class="n">md</span> <span class="o">--</span><span class="n">clipboard</span>
+
+<span class="c1"># Compile to file</span>
+<span class="n">brain</span> <span class="nb">compile</span> <span class="n">brain</span><span class="o">.</span><span class="n">md</span> <span class="o">--</span><span class="n">output</span> <span class="n">context</span><span class="o">.</span><span class="n">toon</span>
+
+<span class="c1"># Compile context.md</span>
+<span class="n">brain</span> <span class="nb">compile</span> <span class="n">context</span><span class="o">.</span><span class="n">md</span> <span class="o">--</span><span class="n">clipboard</span>
+</pre></div>
+</div>
+</section>
+<section id="brain-watch">
+<h2>brain watch<a class="headerlink" href="#brain-watch" title="Link to this heading"></a></h2>
+<p>Watches brain.md or context.md and all referenced <code class="docutils literal notranslate"><span class="pre">&#64;pointer</span></code> files for changes, auto-recompiling.</p>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brain</span> <span class="n">watch</span> <span class="o">&lt;</span><span class="n">source</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><strong>Features</strong>:</p>
+<ul class="simple">
+<li><p>Monitors source file and all referenced files</p></li>
+<li><p>Auto-recompiles on any file change</p></li>
+<li><p>Copies to clipboard on recompile</p></li>
+<li><p>Sends OS notifications for success/failure</p></li>
+<li><p>0.5s debounce to prevent rapid recompiles</p></li>
+<li><p>Press Ctrl+C to stop watching</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brain</span> <span class="n">watch</span> <span class="n">context</span><span class="o">.</span><span class="n">md</span>
+</pre></div>
+</div>
+<p><strong>Output</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>👀 Watching context.md...
+Press Ctrl+C to stop
+
+✔ Brain.md compiled: 360 tokens, 2 files resolved
+</pre></div>
+</div>
+</section>
+<section id="brain-flush">
+<h2>brain flush<a class="headerlink" href="#brain-flush" title="Link to this heading"></a></h2>
+<p><em>(Coming in v0.4.0)</em></p>
+<p>Flush context stack - mark tasks/notes/registers as complete.</p>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brain</span> <span class="n">flush</span> <span class="o">&lt;</span><span class="n">source</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Options</strong>:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--pointers,</span> <span class="pre">-p</span></code></dt><dd><p>Clear all pointer contexts (LIFO order)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--notes,</span> <span class="pre">-n</span></code></dt><dd><p>Clear all note entries</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--registers,</span> <span class="pre">-r</span></code></dt><dd><p>Clear all registers</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--all,</span> <span class="pre">-a</span></code></dt><dd><p>Flush everything (stack + all entries)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--force,</span> <span class="pre">-f</span></code></dt><dd><p>Force flush even if stack is empty</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="toon_format.html" class="btn btn-neutral float-right" title="TOON Format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, akshaydoozie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
