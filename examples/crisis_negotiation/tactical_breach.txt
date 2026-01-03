@@ -1,0 +1,12 @@
+# Tactical Intervention Plan - "Operation Silence"
+
+## Status: ACTIVE
+## Trigger: Hostile Act (Firewall Breach / Detonation Threat)
+
+1. **Unit Alpha**: Breach North Entry (Server Room A) - Flashbangs Authorized.
+2. **Unit Bravo**: Secure Perimeters. Cut external comms lines.
+3. **Negotiator Role**: Distract Subject.
+   - Keep him talking about "The Code".
+   - Do NOT mention the breach.
+   - Frequency: Maintain open line, even if he is silent.
+4. **Sniper Team**: Green light if weapon is visible.
