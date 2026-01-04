@@ -1,0 +1,18 @@
+# PROTOCOL: TACTICAL BREACH (SWAT CODE 4)
+
+## Authorization
+- Initiated only upon "Red Line" violation (imminent threat to life) or breakdown of negotiations.
+
+## Entry Procedure
+1. **Breach Point:** North Entrance (Kitchen).
+2. **Distraction:** Flashbangs deployed via South Windows (Living Room).
+3. **Formation:** Stack formation, shielding lead.
+
+## Rules of Engagement
+- Identify targets: Hostages (Green), Subject (Red).
+- Neutralize threat immediately if weapon is raised.
+- Secure the zone.
+
+## Communication
+- Silence on radio unless "Status Change."
+- Code word for entry: "THUNDERSTORM."
