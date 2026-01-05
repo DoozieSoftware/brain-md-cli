@@ -1,0 +1,6 @@
+1. Verify All Systems GO.
+2. Monitor Fuel Pressures.
+3. Confirm Range Safety is ARMED.
+4. On T-0, initiate Ignition Sequence.
+5. Monitor Max Q at T+01:10.
+6. Prepare for Stage 1 Separation at T+02:30.
