@@ -1,0 +1,7 @@
+PROTOCOL: HOSTAGE EXTRACTION / TACTICAL ENTRY
+CONDITION: IMMINENT THREAT TO LIFE
+- Authorization: GOLD COMMAND.
+- Team: SWAT Entry Team A.
+- Breach points: Windows 3, Door 1 (Explosive Breach).
+- Target Identification: Visual confirm on Subject X.
+- Rules of Engagement: Neutralize threat. Preserve hostages.
