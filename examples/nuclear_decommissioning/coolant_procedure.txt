@@ -1,0 +1,23 @@
+[EMERGENCY PROCEDURE: COOLANT LEAK CONTAINMENT]
+Code: C-LEAK-RED
+Priority: CRITICAL
+
+Detection:
+- Pressure drop in Primary Loop > 5% within 10s.
+- Moisture sensors in containment triggers.
+- Visual confirmation of steam/fluid.
+
+Immediate Actions (The "Golden Minute"):
+1. SCRAM the reactor (if not already shutdown).
+2. ISOLATE the affected loop. Close valves V-101 through V-199 immediately.
+3. ACTIVATE Emergency Core Cooling System (ECCS).
+4. EVACUATE non-essential personnel from Zone Red and Orange.
+
+Sector 4 Specifics:
+- Sector 4 contains the auxiliary bypass line.
+- If leak is in Sector 4, ensure Valve V-440 is CLOSED manually if hydraulics fail.
+- USE POTASSIUM IODIDE TABLETS IMMEDIATELY.
+
+Containment:
+- Deploy absorbent booms to prevent drainage to sump.
+- seal airlocks.
