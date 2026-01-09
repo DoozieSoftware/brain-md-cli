@@ -1,0 +1,24 @@
+[RESTRICTED DOCUMENT - HELIOS-V REACTOR CORE]
+Date: 2024-05-12
+Schematic Version: 4.0
+
+Core Structure:
+- Primary Vessel: Reinforced Titanium-Carbide Alloy
+- Control Rod Assembly: 12 Units, Boron-Carbide
+- Fuel Rod Assembly: 450 Units, MOX Fuel (Mixed Oxide)
+- Coolant Loops: 3 Independent Loops (Primary, Secondary, Emergency)
+
+Zones:
+- Zone Red: Reactor Core (High Radiation)
+- Zone Orange: Primary Coolant Pump Room
+- Zone Green: Control Room
+- Zone Blue: Turbine Hall
+
+Sector Layout:
+- Sector 1-4: Core Quadrants
+- Sector 5: Spent Fuel Pool
+- Sector 6: Waste Processing
+
+CRITICAL NOTE:
+The primary coolant loop valve V-402 is located in Sector 3, adjacent to Fuel Rod #445.
+Extreme caution required when extracting Rod #445 to avoid mechanical impact on V-402.

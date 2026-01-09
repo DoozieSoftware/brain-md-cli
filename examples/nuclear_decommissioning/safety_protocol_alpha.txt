@@ -1,0 +1,22 @@
+[SAFETY PROTOCOL ALPHA - FUEL ROD EXTRACTION]
+Effective Date: 2024-01-01
+Applies to: ALL PERSONNEL in Zone Red
+
+Pre-Extraction Checks:
+1. Verify Radiation Levels < 5.0 Sv/h. If higher, ABORT IMMEDIATELY.
+2. Confirm integrity of Grapple Crane arm.
+3. Establish continuous comms with Control Room.
+4. Verify Neutron Flux Monitors are active.
+
+Extraction Procedure (Standard):
+1. Position Grapple over target rod.
+2. Engage locking mechanism.
+3. Verify lock engagement (Green Light).
+4. Raise rod vertically at max speed 0.5 cm/s.
+5. Monitor localized radiation spikes.
+6. Transfer to Spent Fuel Cask immediately.
+
+EMERGENCY ABORT:
+If resistance is felt > 500 N, STOP IMMEDIATELY. Possible obstruction or thermal expansion.
+Do NOT attempt to force.
+Initiate "Soft Release" and retreat.
