@@ -1,0 +1,16 @@
+SAFETY DATA SHEET: HYDRAZINE-X (HZ-X)
+CAS No: 999-99-9
+HAZARD IDENTIFICATION:
+- Highly Volatile
+- Neurotoxin
+- REACTS VIOLENTLY WITH WATER. DO NOT USE WATER HOSES.
+- Flammable in contact with Oxygen > 15%.
+
+FIRST AID:
+- Inhalation: Move to fresh air, administer O2.
+- Skin Contact: Flush with mineral oil, NOT WATER.
+
+PHYSICAL DATA:
+- State: Liquid
+- Color: Pale Blue
+- Odor: Fishy
