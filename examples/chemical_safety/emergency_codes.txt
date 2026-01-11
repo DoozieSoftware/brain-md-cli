@@ -1,0 +1,14 @@
+CODE RED NEUTRALIZATION CODES
+-----------------------------
+
+SUBSTANCE: Sodium Metal (Na)
+CODE: N-ALPHA
+ACTION: Smother with dry sand or Class D fire extinguisher. DO NOT USE WATER.
+
+SUBSTANCE: Chlorine Gas (Cl2)
+CODE: C-BETA
+ACTION: Activate ammonia scrubbers. evacuation range: 500m.
+
+SUBSTANCE: Hydrochloric Acid (HCl)
+CODE: H-GAMMA
+ACTION: Neutralize with sodium bicarbonate or lime.

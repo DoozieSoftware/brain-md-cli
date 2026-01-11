@@ -1,0 +1,11 @@
+PROTOCOL ALPHA-7: ROUTINE INSPECTION
+----------------------------------
+AREA: Sector 4 (Volatile Storage)
+FREQUENCY: Daily, 0800 HRS
+
+1. Check pressure gauges on Tanks A-1 through A-5. Normal range: 100-150 PSI.
+2. Verify integrity of seals on valves V-99 and V-100.
+3. Ensure coolant flow rate is > 50 L/min.
+4. Log all anomalies in the Digital Logbook (DL-4).
+
+WARNING: Do not engage manual override on V-99 unless pressure > 200 PSI.
