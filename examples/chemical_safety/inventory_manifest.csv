@@ -1,0 +1,5 @@
+CHEM_ID,NAME,FORMULA,HAZARD_CLASS,REACTIVITY_NOTE
+C-101,Benzene,C6H6,Carcinogen,Stable
+C-102,Sodium Metal,Na,Flammable Solid,Reacts violently with water
+C-103,Chlorine Gas,Cl2,Toxic Gas,Oxidizer
+C-104,Hydrochloric Acid,HCl,Corrosive,Reacts with metals
