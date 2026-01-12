@@ -1,0 +1,94 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  user: "Chief Architect (Legacy Migration)"
+  mission: "Safely port critical banking logic from COBOL to Java while ensuring
+zero regression."
+
+REGISTERS:
+  MODE: "TRANSLATION"
+  STRICTNESS: "HIGH"
+  FRAMEWORK: "Spring Boot 3.0"
+
+MEMORY_POINTERS[3]:
+  "@legacy_transaction.cbl"
+  "@modern_service.java"
+  "@sox_compliance.txt"
+
+PROCESS_STACK[3]:
+  "Analyze the COBOL logic for hidden side effects."
+  "Identify discrepancies in the Java implementation."
+  "Propose a refactor that strictly adheres to the SOX compliance rules."
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    The legacy system allows negative balances for Checking accounts but NOT
+Savings.
+    The Java code seems to miss the Checking account logic entirely.
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+# RESOLVED_MEMORY
+
+@legacy_transaction.cbl:
+>>>
+IDENTIFICATION DIVISION.
+       PROGRAM-ID. TRANSACT.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  WS-BALANCE       PIC 9(09)V99.
+       01  WS-AMOUNT        PIC 9(09)V99.
+       01  WS-ACCOUNT-TYPE  PIC X(01).
+       PROCEDURE DIVISION.
+           IF WS-ACCOUNT-TYPE = 'S'
+               IF WS-BALANCE - WS-AMOUNT < 0
+                   DISPLAY 'INSUFFICIENT FUNDS'
+               ELSE
+                   COMPUTE WS-BALANCE = WS-BALANCE - WS-AMOUNT
+               END-IF
+           ELSE
+               COMPUTE WS-BALANCE = WS-BALANCE - WS-AMOUNT
+           END-IF.
+<<<
+
+@modern_service.java:
+>>>
+package com.bank.core;
+
+import java.math.BigDecimal;
+
+public class TransactionService {
+    public void processWithdrawal(BigDecimal balance, BigDecimal amount, String
+type) {
+        if ("S".equals(type)) {
+            // TODO: Implement overdraft logic
+            if (balance.subtract(amount).compareTo(BigDecimal.ZERO) < 0) {
+                throw new InsufficientFundsException();
+            }
+        }
+        // Logic missing for updating balance
+    }
+}
+<<<
+
+@sox_compliance.txt:
+>>>
+SOX CONTROL 404-A: DATA INTEGRITY
+1. All financial transactions must be logged with a UTC timestamp.
+2. Account balances cannot be negative unless an explicit Overdraft Agreement is
+on file (Flag: OD_AGREED).
+3. PII (Personally Identifiable Information) must be masked in all logs.
+
+GDPR ADDENDUM:
+- "Right to be Forgotten" requests must trigger a cascade delete in the audit
+logs after 7 years.
+<<<
+
+
+(618 tokens, 3 files resolved)

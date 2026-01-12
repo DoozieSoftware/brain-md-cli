@@ -1,0 +1,66 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  user: "Chief Architect (Legacy Migration)"
+  mission: "Safely port critical banking logic from COBOL to Java while ensuring
+zero regression."
+
+REGISTERS:
+  MODE: "AUDIT"
+  STRICTNESS: "PARANOID"
+  FRAMEWORK: "Spring Boot 3.0"
+  COMPLIANCE: "SOX-404"
+
+MEMORY_POINTERS[2]:
+  "@audit_schema.json"
+  "@sox_compliance.txt"
+
+PROCESS_STACK[2]:
+  "Verify that the audit schema supports all required compliance flags."
+  "Draft a Liquibase migration script to enforce the new schema."
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Shifted focus to Audit.
+    The 'modern_service.java' is unloaded to prevent distraction.
+    We are only concerned with data-at-rest compliance now.
+
+  todo_list:
+    - "Check PII masking rules"
+
+  current_focus: >-
+    Schema Validation
+
+# RESOLVED_MEMORY
+
+@audit_schema.json:
+>>>
+{
+  "audit_log": {
+    "transaction_id": "UUID",
+    "timestamp": "ISO8601",
+    "user_id": "MASKED_STRING",
+    "action": "WITHDRAWAL",
+    "before_balance": "DECIMAL",
+    "after_balance": "DECIMAL",
+    "compliance_flags": ["OD_AGREED", "KYC_VERIFIED"]
+  }
+}
+<<<
+
+@sox_compliance.txt:
+>>>
+SOX CONTROL 404-A: DATA INTEGRITY
+1. All financial transactions must be logged with a UTC timestamp.
+2. Account balances cannot be negative unless an explicit Overdraft Agreement is
+on file (Flag: OD_AGREED).
+3. PII (Personally Identifiable Information) must be masked in all logs.
+
+GDPR ADDENDUM:
+- "Right to be Forgotten" requests must trigger a cascade delete in the audit
+logs after 7 years.
+<<<
+
+
+(421 tokens, 2 files resolved)
