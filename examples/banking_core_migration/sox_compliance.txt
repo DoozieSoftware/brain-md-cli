@@ -1,0 +1,7 @@
+SOX CONTROL 404-A: DATA INTEGRITY
+1. All financial transactions must be logged with a UTC timestamp.
+2. Account balances cannot be negative unless an explicit Overdraft Agreement is on file (Flag: OD_AGREED).
+3. PII (Personally Identifiable Information) must be masked in all logs.
+
+GDPR ADDENDUM:
+- "Right to be Forgotten" requests must trigger a cascade delete in the audit logs after 7 years.

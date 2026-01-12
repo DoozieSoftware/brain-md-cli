@@ -1,0 +1,11 @@
+{
+  "audit_log": {
+    "transaction_id": "UUID",
+    "timestamp": "ISO8601",
+    "user_id": "MASKED_STRING",
+    "action": "WITHDRAWAL",
+    "before_balance": "DECIMAL",
+    "after_balance": "DECIMAL",
+    "compliance_flags": ["OD_AGREED", "KYC_VERIFIED"]
+  }
+}
