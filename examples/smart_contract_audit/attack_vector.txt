@@ -1,0 +1,25 @@
+# Attack Vector Analysis: Reentrancy
+
+The `withdraw` function in `EtherVault` is vulnerable to a classic reentrancy attack.
+
+## Vulnerability Detail
+The contract performs the external call (sending Ether) *before* updating the user's balance.
+
+```solidity
+(bool success, ) = msg.sender.call{value: balance}("");
+// ...
+balances[msg.sender] = 0;
+```
+
+## Exploit Scenario
+1. Attacker deploys a malicious contract.
+2. Attacker deposits 1 ETH.
+3. Attacker calls `withdraw`.
+4. `EtherVault` sends 1 ETH to attacker contract.
+5. Attacker contract's `receive()` function is triggered.
+6. `receive()` calls `withdraw` again *before* `balances[msg.sender]` is set to 0.
+7. `EtherVault` sees `balance` is still 1 ETH and sends another 1 ETH.
+8. Rinse and repeat until `EtherVault` is drained.
+
+## Severity
+CRITICAL. Direct loss of funds.
