@@ -1,0 +1,4 @@
+production:
+  region: us-east-1
+  config_service: "http://config-service.internal"
+  retry_policy: "exponential"
