@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "USD_PRIME": "CONF_001",
+    "EUR_LIBOR": "CONF_002",
+    "JPY_BOND": "CONF_009"
+  },
+  "legacy_defaults": {
+    "precision": 4,
+    "rounding_mode": "HALF_EVEN"
+  }
+}

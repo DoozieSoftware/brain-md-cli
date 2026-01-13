@@ -1,0 +1,13 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. CALC-INT.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  WS-PRINCIPAL      PIC 9(7)V99.
+       01  WS-RATE           PIC V999.
+       01  WS-DAYS           PIC 9(3).
+       01  WS-INTEREST       PIC 9(7)V99.
+       PROCEDURE DIVISION.
+           COMPUTE WS-INTEREST = (WS-PRINCIPAL * WS-RATE * WS-DAYS) / 365
+           ROUNDED.
+           DISPLAY "INTEREST: " WS-INTEREST.
+           STOP RUN.
