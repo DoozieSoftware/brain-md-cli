@@ -1,0 +1,10 @@
+[timestamp=T-00:05:00] SYSTEM_STARTUP: OK
+[timestamp=T-00:04:30] ACS_INIT: OK
+[timestamp=T-00:00:10] RW_SPEED_RPM: [X: 1200, Y: 1200, Z: 1200]
+[timestamp=T+00:00:01] EVENT: SEPARATION_CONFIRMED
+[timestamp=T+00:00:05] MODE_SWITCH: DETUMBLE
+[timestamp=T+00:00:15] WARN: RW_Z_AXIS_SATURATION
+[timestamp=T+00:00:16] ERR: RW_Z_AXIS_CURRENT_SPIKE (Val: 5.2A, Limit: 2.0A)
+[timestamp=T+00:00:17] FAIL: RW_Z_AXIS_OFFLINE
+[timestamp=T+00:00:20] GYRO_RATES: [X: 0.1, Y: 0.2, Z: 4.5] deg/s
+[timestamp=T+00:00:25] ALARM: ATTITUDE_DIVERGENCE

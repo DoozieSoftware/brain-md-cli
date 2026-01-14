@@ -1,0 +1,22 @@
+{
+  "spacecraft_id": "ICARUS-IV",
+  "mass_kg": 450.5,
+  "inertia_tensor": [
+    [150, 0, 0],
+    [0, 180, 0],
+    [0, 0, 200]
+  ],
+  "actuators": {
+    "reaction_wheels": {
+      "max_torque_nm": 0.5,
+      "max_momentum_nms": 12.0
+    },
+    "magnetorquers": {
+      "max_dipole_am2": 15.0
+    }
+  },
+  "control_gains": {
+    "kp": 0.8,
+    "kd": 1.2
+  }
+}
