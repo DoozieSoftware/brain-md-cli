@@ -1,0 +1,71 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  role: "Senior SRE Lead"
+  mode: "Critical/Incident-Response"
+  token_budget: 8000
+
+REGISTERS:
+  incident_id: "INC-909"
+  severity: "SEV-1"
+  status: "INVESTIGATING"
+  primary_shard: "shard-04"
+
+MEMORY_POINTERS[3]{type, path, description}:
+  "file", "@incident_report.txt", "Current Symptoms"
+  "file", "@logs_shard_04.txt", "Recent Error Logs"
+  "file", "@runbook_diagnose.md", "Diagnostic Procedures"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Analyze Error Logs for Patterns"
+  "2", "Check Replication Lag on Shard-04"
+  "3", "Hypothesize Root Cause"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@incident_report.txt:
+>>>
+INCIDENT ID: INC-909
+Reported By: PagerDuty
+Time: 14:02 UTC
+Symptoms:
+- 500 Error Rate spike on API Endpoint /v1/transactions
+- High Latency on Write Operations (>5s)
+- Customer Support reporting "Checkout Failed" errors.
+<<<
+
+@logs_shard_04.txt:
+>>>
+[14:01:22] ERROR [StorageEngine] WAL Write Failed: Disk Full or IOPS Saturation.
+[14:01:23] WARN  [Replication] Follower 'shard-04-replica-a' fell behind by
+4500ms.
+[14:01:25] ERROR [TransactionManager] Commit timeout. Rolling back txn_id=99821.
+[14:01:45] FATAL [System] fsync() took 2300ms.
+<<<
+
+@runbook_diagnose.md:
+>>>
+# Runbook: High Latency / Error Rates
+
+1. Check System Metrics (CPU, Memory, Disk I/O).
+2. Check Database Logs for Deadlocks or Slow Queries.
+3. Verify Network Connectivity between App and DB.
+4. If Disk I/O is saturated, identify the process consuming it.
+<<<
+
+
+(518 tokens, 3 files resolved)

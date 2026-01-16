@@ -1,0 +1,4 @@
+[14:01:22] ERROR [StorageEngine] WAL Write Failed: Disk Full or IOPS Saturation.
+[14:01:23] WARN  [Replication] Follower 'shard-04-replica-a' fell behind by 4500ms.
+[14:01:25] ERROR [TransactionManager] Commit timeout. Rolling back txn_id=99821.
+[14:01:45] FATAL [System] fsync() took 2300ms.

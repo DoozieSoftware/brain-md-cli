@@ -1,0 +1,76 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  role: "Senior SRE Lead"
+  mode: "Critical/Incident-Response"
+  token_budget: 8000
+
+REGISTERS:
+  incident_id: "INC-909"
+  severity: "SEV-1"
+  status: "MITIGATING"
+  primary_shard: "shard-04"
+  action: "FAILOVER_INITIATED"
+
+MEMORY_POINTERS[3]{type, path, description}:
+  "file", "@incident_report.txt", "Current Symptoms"
+  "file", "@logs_shard_04.txt", "Recent Error Logs"
+  "file", "@runbook_failover.md", "Failover Procedures"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Verify Replica Health"
+  "2", "Execute Failover Command"
+  "3", "Verify Write Availability on New Primary"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Diagnosis confirmed: Disk Saturation on Primary.
+    Decision: Immediate Failover to Replica A.
+
+  todo_list:
+    - "Stop Primary"
+    - "Promote Replica"
+
+  current_focus: >-
+    Executing Failover Sequence.
+
+
+# RESOLVED_MEMORY
+
+@incident_report.txt:
+>>>
+INCIDENT ID: INC-909
+Reported By: PagerDuty
+Time: 14:02 UTC
+Symptoms:
+- 500 Error Rate spike on API Endpoint /v1/transactions
+- High Latency on Write Operations (>5s)
+- Customer Support reporting "Checkout Failed" errors.
+<<<
+
+@logs_shard_04.txt:
+>>>
+[14:01:22] ERROR [StorageEngine] WAL Write Failed: Disk Full or IOPS Saturation.
+[14:01:23] WARN  [Replication] Follower 'shard-04-replica-a' fell behind by
+4500ms.
+[14:01:25] ERROR [TransactionManager] Commit timeout. Rolling back txn_id=99821.
+[14:01:45] FATAL [System] fsync() took 2300ms.
+<<<
+
+@runbook_failover.md:
+>>>
+# Runbook: Primary Failover Procedure (Postgres/Patroni)
+
+WARNING: DATA LOSS RISK. AUTHORIZATION REQUIRED.
+
+1. Verify Replica Health (`patronictl list`).
+2. Stop the Primary (`sudo systemctl stop postgresql`).
+3. Promote the healthiest Replica (`patronictl failover --force`).
+4. Update connection string in Vault/Consul (if not automated).
+5. Verify new Primary is accepting writes.
+<<<
+
+
+(563 tokens, 3 files resolved)
