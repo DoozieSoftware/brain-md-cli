@@ -1,0 +1,7 @@
+INCIDENT ID: INC-909
+Reported By: PagerDuty
+Time: 14:02 UTC
+Symptoms:
+- 500 Error Rate spike on API Endpoint /v1/transactions
+- High Latency on Write Operations (>5s)
+- Customer Support reporting "Checkout Failed" errors.
