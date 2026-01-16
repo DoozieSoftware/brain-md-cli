@@ -1,0 +1,74 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  role: "Lead Backend Architect"
+  mode: "Critical/Migration"
+  token_budget: 8000
+
+REGISTERS:
+  project_root: "./src"
+  current_phase: "Emergency-Rollback"
+
+MEMORY_POINTERS[2]{type, path, description}:
+  "file", "@legacy_ledger.java", "Source of Truth (Legacy)"
+  "file", "@reconciliation_script.py", "Variance Detector"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Investigate Reconciliation Variance"
+  "2", "Run Rollback Protocol"
+  "3", "Notify Compliance Team"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    ALERT: The reconciliation script found a mismatch in the user balance table.
+    We are aborting the migration immediately.
+
+  todo_list:
+    - "Check logs for double-write errors"
+    - "Isolate the affected user IDs"
+
+  current_focus: >-
+    Analyzing the diff output from the Python script.
+
+
+# RESOLVED_MEMORY
+
+@legacy_ledger.java:
+>>>
+package com.fintech.core;
+
+public class LegacyLedger {
+    // OLD MONOLITH CODE - DO NOT TOUCH WITHOUT APPROVAL
+    public void processTransaction(String userId, double amount) {
+        if (amount > 10000) {
+             System.out.println("High value transaction detected");
+        }
+        // Direct DB access (Bad practice, but legacy)
+        Database.execute("UPDATE users SET balance = balance + " + amount + "
+WHERE id = " + userId);
+    }
+}
+<<<
+
+@reconciliation_script.py:
+>>>
+import pandas as pd
+
+def reconcile_ledgers(legacy_csv, new_db_export):
+    """
+    Compares the Legacy Ledger against the New Microservice Ledger.
+    """
+    legacy = pd.read_csv(legacy_csv)
+    new_sys = pd.read_csv(new_db_export)
+
+    diff = legacy['balance'] - new_sys['balance']
+    if diff.sum() != 0:
+        raise CriticalError("MONEY HAS VANISHED!")
+
+    print("Reconciliation Complete. Variance: $0.00")
+<<<
+
+
+(462 tokens, 2 files resolved)

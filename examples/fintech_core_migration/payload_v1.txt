@@ -1,0 +1,68 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  role: "Lead Backend Architect"
+  mode: "Critical/Migration"
+  token_budget: 8000
+
+REGISTERS:
+  project_root: "./src"
+  current_phase: "Migration-Phase-1"
+
+MEMORY_POINTERS[2]{type, path, description}:
+  "file", "@legacy_ledger.java", "Source of Truth (Legacy)"
+  "file", "@idempotency_strategy.md", "Safety Rules"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Review Legacy Logic for Hidden Side Effects"
+  "2", "Map Idempotency Keys to Legacy Transactions"
+  "3", "Generate Migration Test Cases"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@legacy_ledger.java:
+>>>
+package com.fintech.core;
+
+public class LegacyLedger {
+    // OLD MONOLITH CODE - DO NOT TOUCH WITHOUT APPROVAL
+    public void processTransaction(String userId, double amount) {
+        if (amount > 10000) {
+             System.out.println("High value transaction detected");
+        }
+        // Direct DB access (Bad practice, but legacy)
+        Database.execute("UPDATE users SET balance = balance + " + amount + "
+WHERE id = " + userId);
+    }
+}
+<<<
+
+@idempotency_strategy.md:
+>>>
+# Idempotency Strategy V2
+
+## Overview
+We use a Redis-backed key store to prevent double-spending.
+
+## Rules
+1. Every request must have `X-Idempotency-Key` header.
+2. Keys expire after 24 hours.
+3. If key exists, return cached response.
+<<<
+
+
+(409 tokens, 2 files resolved)
