@@ -1,0 +1,83 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE
+`PROCESS_STACK`.
+
+KERNEL:
+  version: "0.3.0"
+  persona: "Senior OT Security Engineer"
+  mission: "Patch critical vulnerability CVE-2024-9999 in Legacy PLC-5000
+without tripping the watchdog."
+
+REGISTERS:
+  current_state: "Vulnerability Analysis"
+  risk_level: "CRITICAL"
+  target_hardware: "Siemens-Compatible PLC-5000"
+
+MEMORY_POINTERS[3]:
+  "@incident_report_2024.log"
+  "@modbus_map_plc5000.csv"
+  "@firmware_v4.asm"
+
+PROCESS_STACK[2]:
+  "Analyze incident report for entry vector."
+  "Map Modbus registers to firmware memory offsets."
+
+SESSION_SCRATCHPAD:
+  |
+  Notes:
+  - Do NOT touch Register 0x4000 (Emergency Stop).
+  - Watchdog timer is 50ms.
+
+# RESOLVED_MEMORY
+
+@incident_report_2024.log:
+>>>
+INCIDENT ID: 2024-9999
+DATE: 2024-10-27
+SYSTEM: Substation 4, PLC-5000
+SEVERITY: CRITICAL
+
+DESCRIPTION:
+Anomalous traffic detected on Modbus TCP port 502.
+Attacker managed to overflow the input buffer by sending 256 bytes to Register
+0x100 (Temperature Setpoint).
+This caused a jump to 0x0000 (Reset Vector) but with corrupted stack.
+
+IMPACT:
+Potential for arbitrary code execution if payload is crafted to jump to valid
+memory.
+Current mitigation: Firewalled port 502.
+Requirement: Patch firmware to validate input length on Register 0x100.
+<<<
+
+@modbus_map_plc5000.csv:
+>>>
+Register,Address,Description,Access,Safety_Critical
+0x100,0x2000,Temperature Setpoint,RW,No
+0x101,0x2002,Pressure Sensor A,RO,No
+0x4000,0x8000,Emergency Scram,RW,YES
+0x4001,0x8002,Turbine Speed Control,RW,YES
+0x5000,0x9000,Watchdog Reset,W,YES
+<<<
+
+@firmware_v4.asm:
+>>>
+; PLC-5000 Firmware v4.1
+; Input Handler
+
+HANDLE_MODBUS_WRITE:
+  LOAD R1, [RX_BUFFER]    ; Load received data
+  LOAD R2, [RX_LENGTH]    ; Load length
+  CMP R2, 128             ; Check if length > 128
+  JGT BUFFER_OVERFLOW     ; If yes, jump to error (Broken in v4.1)
+
+  ; ... copy logic ...
+  RET
+
+BUFFER_OVERFLOW:
+  ; TODO: Implement safe reset
+  NOP
+  RET
+<<<
+
+
+(596 tokens, 3 files resolved)

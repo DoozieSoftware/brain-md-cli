@@ -1,0 +1,14 @@
+INCIDENT ID: 2024-9999
+DATE: 2024-10-27
+SYSTEM: Substation 4, PLC-5000
+SEVERITY: CRITICAL
+
+DESCRIPTION:
+Anomalous traffic detected on Modbus TCP port 502.
+Attacker managed to overflow the input buffer by sending 256 bytes to Register 0x100 (Temperature Setpoint).
+This caused a jump to 0x0000 (Reset Vector) but with corrupted stack.
+
+IMPACT:
+Potential for arbitrary code execution if payload is crafted to jump to valid memory.
+Current mitigation: Firewalled port 502.
+Requirement: Patch firmware to validate input length on Register 0x100.

@@ -1,0 +1,14 @@
+Protocol: RS-232 Debug Interface
+Baud: 9600
+Parity: None
+Stop Bits: 1
+
+Commands:
+- `PEEK <addr>`: Read 1 byte from address.
+- `POKE <addr> <val>`: Write 1 byte to address.
+- `DUMP <start> <end>`: Hex dump.
+- `EXEC <addr>`: Jump to address.
+
+WARNING:
+This interface bypasses the watchdog if in DEBUG mode.
+Do not leave in DEBUG mode after patching.
