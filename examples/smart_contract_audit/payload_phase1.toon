@@ -1,0 +1,125 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  persona: "0xSentinel"
+  role: "Senior Smart Contract Auditor"
+  mission: "Identify critical vulnerabilities in DeFi protocols"
+  strict_mode: "true"
+
+REGISTERS:
+  client: "DeFi Nova"
+  contract_scope: "LiquidityPool.sol"
+  current_phase: "Vulnerability Scanning"
+  risk_tolerance: "Zero"
+
+MEMORY_POINTERS[3]{type, path, context}:
+  "source_code", "@LiquidityPool.sol", "Main contract under audit"
+  "dependency", "@ReentrancyGuard.sol", "Inherited security module"
+  "rules", "@audit_checklist.md", "Standard operating procedure"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Scan 'withdraw' function for CEI compliance"
+  "2", "Verify access control on administrative functions"
+  "3", "Check for unbounded loops in 'distributeRewards'"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@LiquidityPool.sol:
+>>>
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./ReentrancyGuard.sol";
+
+contract LiquidityPool is ReentrancyGuard {
+    mapping(address => uint256) public balances;
+    mapping(address => uint256) public rewards;
+    uint256 public totalLiquidity;
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function deposit() external payable {
+        balances[msg.sender] += msg.value;
+        totalLiquidity += msg.value;
+    }
+
+    function withdraw(uint256 amount) external {
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+
+        // VULNERABILITY: State update after external call (Reentrancy)
+        // Although we inherit ReentrancyGuard, we forgot to add the nonReentrant modifier!
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Transfer failed");
+
+        balances[msg.sender] -= amount;
+        totalLiquidity -= amount;
+    }
+
+    function distributeRewards(address[] calldata recipients, uint256[] calldata amounts) external {
+        require(msg.sender == owner, "Only owner");
+        // GAS ISSUE: Unbounded loop
+        for (uint256 i = 0; i < recipients.length; i++) {
+            rewards[recipients[i]] += amounts[i];
+        }
+    }
+}
+<<<
+
+@ReentrancyGuard.sol:
+>>>
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract ReentrancyGuard {
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    modifier nonReentrant() {
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+        _status = _ENTERED;
+        _;
+        _status = _NOT_ENTERED;
+    }
+}
+<<<
+
+@audit_checklist.md:
+>>>
+# Smart Contract Audit Checklist v2.1
+
+## Critical Severity
+- [ ] **Reentrancy**: Check for Check-Effects-Interactions pattern violation.
+- [ ] **Access Control**: Verify `onlyOwner` or similar modifiers on sensitive functions.
+- [ ] **Integer Overflow/Underflow**: (Less relevant in 0.8+ but check for `unchecked` blocks).
+
+## High Severity
+- [ ] **Front-Running**: Can a miner manipulate the transaction order?
+- [ ] **Denial of Service**: Unbounded loops or reliance on external calls.
+
+## Gas Optimization
+- [ ] **Storage Layout**: Pack variables to fit in 256-bit slots.
+- [ ] **Memory vs Calldata**: Use `calldata` for read-only array arguments.
+- [ ] **Loops**: Avoid loops in state-changing functions if possible.
+<<<
