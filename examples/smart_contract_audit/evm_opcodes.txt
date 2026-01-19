@@ -1,0 +1,8 @@
+Opcode | Gas Cost | Description
+-------|----------|------------
+SLOAD  | 2100     | Load from storage
+SSTORE | 22100*   | Save to storage
+CALL   | 700      | Call external contract
+MLOAD  | 3        | Load from memory
+ADD    | 3        | Addition
+LOG0   | 375      | Log without topics
