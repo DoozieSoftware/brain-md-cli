@@ -1,0 +1,20 @@
+region: us-east-1
+environment: production
+vpc_id: vpc-0a1b2c3d4e5f
+clusters:
+  - name: primary-app-cluster
+    nodes: 50
+    instance_type: c5.4xlarge
+database:
+  - id: db-shard-04
+    role: primary
+    type: postgresql
+    version: 14.5
+    replicas:
+      - id: db-shard-04-read-1
+        zone: us-east-1a
+      - id: db-shard-04-read-2
+        zone: us-east-1b
+load_balancers:
+  - id: alb-public-01
+    scheme: internet-facing
