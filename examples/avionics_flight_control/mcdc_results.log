@@ -1,0 +1,18 @@
+[MCDC COVERAGE REPORT]
+Module: pid_controller.c
+Function: calculate_pitch_output
+
+Condition Analysis:
+1. (target_pitch > MAX_PITCH_DEG)
+   - TRUE taken: YES
+   - FALSE taken: YES
+
+2. (target_pitch < -MAX_PITCH_DEG)
+   - TRUE taken: NO  <-- MISSING TEST CASE
+   - FALSE taken: YES
+
+Decision Coverage:
+- IF..ELSE IF.. structure: 75% Covered.
+
+WARNING: Structural Coverage for LEVEL A is INCOMPLETE.
+Missing negative pitch saturation test.

@@ -1,0 +1,17 @@
+[DO-178C LEVEL A VERIFICATION CHECKLIST]
+
+1. High-Level Requirements (HLR) Traceability:
+   - Does every line of Source Code trace to a HLR?
+   - Is the implementation accurate and complete?
+
+2. Control Flow Analysis:
+   - Are all loops bounded?
+   - Is recursion avoided?
+
+3. Data Flow Analysis:
+   - Are all variables initialized before use?
+   - Are range constraints enforced (e.g., divide by zero checks)?
+
+4. Structural Coverage (MCDC):
+   - Have all decisions and conditions been exercised independently?
+   - NOTE: MCDC is ONLY required for Level A software.
