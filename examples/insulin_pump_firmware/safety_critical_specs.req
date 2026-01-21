@@ -1,0 +1,4 @@
+REQ-001: The system shall ensure that the bolus delivery does not exceed 10.0 units in a single dose.
+REQ-002: Basal rate adjustments must be verified by a secondary checksum before actuation.
+REQ-003: If the occlusion sensor triggers, the pump motor must stop within 50ms.
+REQ-004: All interrupt handlers must complete execution within 10ms to prevent watchdog timeout.
