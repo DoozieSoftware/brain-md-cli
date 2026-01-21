@@ -1,0 +1,14 @@
+REQ-SAFE-01: PITCH_LIMIT_ENFORCEMENT
+  The Flight Control System (FCS) MUST limit the aircraft pitch angle to +/- 30 degrees.
+  IF the pilot input commands a pitch angle exceeding 30 degrees,
+  THEN the FCS shall clamp the target pitch to 30 degrees.
+  Severity: CATASTROPHIC (Level A).
+
+REQ-SAFE-02: PID_INTEGRAL_WINDUP
+  The integral term of the PID controller MUST be clamped to prevent windup during saturation.
+  Max Integral Term Value: 1000 units.
+  Severity: HAZARDOUS (Level B).
+
+REQ-PERF-03: LOOP_FREQUENCY
+  The control loop shall execute at exactly 400Hz +/- 1Hz.
+  Severity: MAJOR (Level C).
