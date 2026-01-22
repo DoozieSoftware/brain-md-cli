@@ -1,0 +1,18 @@
+SEC Rule 15c3-5 (Market Access Rule) Compliance Report Template
+
+1. Algorithm Identification
+   Name: [ALGO_NAME]
+   Version: [VERSION]
+
+2. Pre-Trade Risk Controls
+   - Capital Limits: [DESCRIBE_LIMITS]
+   - Fat Finger Protection: [DESCRIBE_CHECKS]
+   - Kill Switch Functionality: [DESCRIBE_MECHANISM]
+
+3. Change Management Log
+   - Description of Change: [CHANGE_DESC]
+   - Risk Assessment: [RISK_ASSESSMENT]
+   - Testing Evidence: [TEST_EVIDENCE]
+
+4. Certification
+   I, [NAME], certify that...

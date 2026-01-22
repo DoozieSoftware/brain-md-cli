@@ -1,0 +1,5 @@
+2026-01-22 09:00:00 [INFO] System startup
+2026-01-22 09:00:01 [INFO] Risk limits loaded: Max Position 1M
+2026-01-22 10:15:30 [WARN] High latency detected on tick processing (150ns)
+2026-01-22 10:15:31 [INFO] Switch to fallback strategy
+2026-01-22 10:30:00 [INFO] User initiated Pivot to Compliance Mode
