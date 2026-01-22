@@ -1,0 +1,6 @@
+{
+  "max_position_size": 1000000,
+  "max_loss_per_tick": 5000,
+  "kill_switch_enabled": true,
+  "regulatory_region": "US_EQUITIES"
+}
