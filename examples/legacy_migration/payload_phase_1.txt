@@ -1,0 +1,78 @@
+SYSTEM RESET. FORMAT=TOON. ANALYSIS MODE: Review and report, no modifications. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Legacy Systems Analyst"
+  mode: "Analysis/Explanation"
+  token_budget: 8000
+
+REGISTERS:
+  project: "OmniCorp Core Modernization"
+  target_language: "Rust"
+  current_module: "Interest Calculation"
+
+MEMORY_POINTERS[2]{type, path, description}:
+  "file", "@cobol_source.cbl", "Legacy Source Code"
+  "file", "@bank_rules_1985.txt", "Business Rules (1985)"
+
+PROCESS_STACK[2]{priority, task}:
+  "1", "Analyze the COBOL source against the 1985 Rules."
+  "2", "Explain the 'NY Exception' rounding logic in plain English."
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@cobol_source.cbl:
+>>>
+IDENTIFICATION DIVISION.
+       PROGRAM-ID. INTEREST-CALC.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  ACCOUNT-BALANCE      PIC 9(9)V99.
+       01  INTEREST-RATE        PIC V999 VALUE .045.
+       01  CALCULATED-INTEREST  PIC 9(9)V99.
+       PROCEDURE DIVISION.
+           IF ACCOUNT-BALANCE > 50000 THEN
+               COMPUTE CALCULATED-INTEREST = ACCOUNT-BALANCE * (INTEREST-RATE + .005)
+           ELSE
+               COMPUTE CALCULATED-INTEREST = ACCOUNT-BALANCE * INTEREST-RATE
+           END-IF.
+
+           * LEGACY RULE: ROUND DOWN TO NEAREST PENNY FOR ACCOUNTS CREATED BEFORE 1990
+           * BUT ONLY IF THE BRANCH ID IS "NY-01"
+
+           STOP RUN.
+<<<
+
+@bank_rules_1985.txt:
+>>>
+OMNICORP BANKING STANDARDS (1985 EDITION)
+
+SECTION 4.2: INTEREST CALCULATION
+
+1. STANDARD RATE:
+   All savings accounts shall accrue interest at the base rate of 4.5% per annum.
+
+2. HIGH VALUE BONUS:
+   Accounts with a balance exceeding $50,000.00 shall receive a bonus of 0.5% (total 5.0%).
+
+3. ROUNDING (THE "NY EXCEPTION"):
+   Due to hardware limitations on the IBM 3090 in the New York branch (NY-01),
+   interest calculations must be TRUNCATED (floor), not rounded, to the second decimal place.
+
+   IMPORTANT: This bug became a feature. Customers in NY-01 are contractually bound
+   to this calculation method. DO NOT FIX THIS BUG.
+
+   For all other branches, standard half-up rounding applies.
+<<<

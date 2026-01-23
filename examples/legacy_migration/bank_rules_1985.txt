@@ -1,0 +1,18 @@
+OMNICORP BANKING STANDARDS (1985 EDITION)
+
+SECTION 4.2: INTEREST CALCULATION
+
+1. STANDARD RATE:
+   All savings accounts shall accrue interest at the base rate of 4.5% per annum.
+
+2. HIGH VALUE BONUS:
+   Accounts with a balance exceeding $50,000.00 shall receive a bonus of 0.5% (total 5.0%).
+
+3. ROUNDING (THE "NY EXCEPTION"):
+   Due to hardware limitations on the IBM 3090 in the New York branch (NY-01),
+   interest calculations must be TRUNCATED (floor), not rounded, to the second decimal place.
+
+   IMPORTANT: This bug became a feature. Customers in NY-01 are contractually bound
+   to this calculation method. DO NOT FIX THIS BUG.
+
+   For all other branches, standard half-up rounding applies.
