@@ -1,0 +1,19 @@
+{
+  "region": "us-east-1",
+  "vpc_id": "vpc-0a1b2c3d4e5f",
+  "subnets": ["subnet-public-1", "subnet-private-1"],
+  "services": [
+    {
+      "name": "payment-gateway",
+      "type": "ecs-fargate",
+      "instances": 5,
+      "dependencies": ["user-db-primary"]
+    },
+    {
+      "name": "user-db-primary",
+      "type": "rds-aurora",
+      "engine": "postgres",
+      "status": "HEALTHY"
+    }
+  ]
+}
