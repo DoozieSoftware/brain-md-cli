@@ -1,0 +1,12 @@
+experiment:
+  name: "latency-injection-payment"
+  target: "payment-gateway"
+  hypothesis: "System should degrade gracefully under 500ms latency"
+  method:
+    type: "network-delay"
+    duration: "5m"
+    params:
+      latency: "500ms"
+      jitter: "50ms"
+  rollback:
+    command: "stop-experiment --id latency-payment"
