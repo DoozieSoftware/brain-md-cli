@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp": "2023-10-27T10:00:01.000Z",
+    "service": "payment-gateway",
+    "level": "INFO",
+    "message": "Transaction initiated",
+    "latency_ms": 12
+  },
+  {
+    "timestamp": "2023-10-27T10:00:01.500Z",
+    "service": "tokenizer-service",
+    "level": "WARN",
+    "message": "Vault connection pool exhaustion",
+    "latency_ms": 4500
+  },
+  {
+    "timestamp": "2023-10-27T10:00:02.000Z",
+    "service": "payment-gateway",
+    "level": "ERROR",
+    "message": "Timeout waiting for token",
+    "latency_ms": 5002
+  },
+  {
+    "timestamp": "2023-10-27T10:00:05.000Z",
+    "service": "tokenizer-service",
+    "level": "INFO",
+    "message": "GC Paused",
+    "duration_ms": 1200
+  }
+]

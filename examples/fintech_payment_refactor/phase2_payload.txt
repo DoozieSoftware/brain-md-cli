@@ -1,0 +1,90 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+
+KERNEL:
+  version: "2.1"
+  security_level: "HIGH"
+  compliance_standard: "PCI-DSS-v4"
+
+REGISTERS:
+  CURRENT_TASK: "PERFORMANCE_INCIDENT_RESPONSE"
+  URGENCY: "CRITICAL"
+  INCIDENT_ID: "INC-9942"
+
+MEMORY_POINTERS[2]:
+"@pci_dss_requirements.md"
+"@perf_logs.json"
+
+PROCESS_STACK[2]:
+"ANALYZE_LATENCY"
+"IDENTIFY_BOTTLENECKS"
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Pivot to incident response.
+    Source code unloaded to prevent accidental edits.
+    Logs loaded.
+
+# RESOLVED_MEMORY
+
+@pci_dss_requirements.md:
+>>>
+# PCI DSS v4.0 - Data Protection Requirements
+
+## Requirement 3: Protect Stored Account Data
+
+3.1.1 The full Primary Account Number (PAN) is not stored unless strictly necessary.
+3.2.1 Do not store sensitive authentication data after authorization (even if encrypted):
+    - The full contents of any track (magnetic stripe, chip).
+    - The card verification code (CVC/CVV).
+    - The PIN or PIN block.
+3.3.1 PAN is masked when displayed (the first six and last four digits are the maximum number of digits to be displayed).
+3.4.1 If PAN is stored, it must be rendered unreadable anywhere it is stored (including portable digital media, backup media, and in logs).
+    - One-way hashes based on strong cryptography.
+    - Truncation.
+    - Index tokens and pads.
+    - Strong cryptography with associated key-management processes.
+
+## Requirement 6: Develop and Maintain Secure Systems
+
+6.2.4 Software engineering techniques must prevent common coding vulnerabilities:
+    - Injection flaws.
+    - Buffer overflows.
+    - Insecure cryptographic storage.
+    - Insecure communications.
+    - Improper error handling (do not leak sensitive data in error logs).
+<<<
+
+@perf_logs.json:
+>>>
+[
+  {
+    "timestamp": "2023-10-27T10:00:01.000Z",
+    "service": "payment-gateway",
+    "level": "INFO",
+    "message": "Transaction initiated",
+    "latency_ms": 12
+  },
+  {
+    "timestamp": "2023-10-27T10:00:01.500Z",
+    "service": "tokenizer-service",
+    "level": "WARN",
+    "message": "Vault connection pool exhaustion",
+    "latency_ms": 4500
+  },
+  {
+    "timestamp": "2023-10-27T10:00:02.000Z",
+    "service": "payment-gateway",
+    "level": "ERROR",
+    "message": "Timeout waiting for token",
+    "latency_ms": 5002
+  },
+  {
+    "timestamp": "2023-10-27T10:00:05.000Z",
+    "service": "tokenizer-service",
+    "level": "INFO",
+    "message": "GC Paused",
+    "duration_ms": 1200
+  }
+]
+<<<

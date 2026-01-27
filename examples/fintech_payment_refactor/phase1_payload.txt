@@ -1,0 +1,106 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+
+KERNEL:
+  version: "2.1"
+  security_level: "HIGH"
+  compliance_standard: "PCI-DSS-v4"
+
+REGISTERS:
+  CURRENT_TASK: "AUDIT_CODEBASE"
+  RISK_TOLERANCE: "ZERO"
+
+MEMORY_POINTERS[2]:
+"@pci_dss_requirements.md"
+"@tokenization.java"
+
+PROCESS_STACK[3]:
+"REVIEW_CODE_AGAINST_REQUIREMENT_3"
+"CHECK_FOR_LOGGING_LEAKS"
+"VERIFY_LUHN_VALIDATION"
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Starting audit.
+
+# RESOLVED_MEMORY
+
+@pci_dss_requirements.md:
+>>>
+# PCI DSS v4.0 - Data Protection Requirements
+
+## Requirement 3: Protect Stored Account Data
+
+3.1.1 The full Primary Account Number (PAN) is not stored unless strictly necessary.
+3.2.1 Do not store sensitive authentication data after authorization (even if encrypted):
+    - The full contents of any track (magnetic stripe, chip).
+    - The card verification code (CVC/CVV).
+    - The PIN or PIN block.
+3.3.1 PAN is masked when displayed (the first six and last four digits are the maximum number of digits to be displayed).
+3.4.1 If PAN is stored, it must be rendered unreadable anywhere it is stored (including portable digital media, backup media, and in logs).
+    - One-way hashes based on strong cryptography.
+    - Truncation.
+    - Index tokens and pads.
+    - Strong cryptography with associated key-management processes.
+
+## Requirement 6: Develop and Maintain Secure Systems
+
+6.2.4 Software engineering techniques must prevent common coding vulnerabilities:
+    - Injection flaws.
+    - Buffer overflows.
+    - Insecure cryptographic storage.
+    - Insecure communications.
+    - Improper error handling (do not leak sensitive data in error logs).
+<<<
+
+@tokenization.java:
+>>>
+package com.fincore.vault;
+
+import java.util.UUID;
+import com.fincore.logging.SecureLogger;
+
+/**
+ * Handles PAN tokenization.
+ * CRITICAL: This class handles raw PANs. Changes must be reviewed by Security.
+ */
+public class TokenizerService {
+
+    private final SecureLogger logger = new SecureLogger(TokenizerService.class);
+
+    public String tokenize(String pan) {
+        if (pan == null || pan.length() < 13) {
+            throw new IllegalArgumentException("Invalid PAN length");
+        }
+
+        // Validate Luhn Checksum
+        if (!luhnCheck(pan)) {
+             // ERROR: Never log the PAN in the error message!
+             logger.error("Invalid PAN checksum detected.");
+             throw new SecurityException("Invalid PAN");
+        }
+
+        String token = generateToken();
+        saveToVault(token, pan); // Encrypts before write
+
+        // Audit log - MASKED PAN ONLY
+        logger.info("Token generated for PAN ending in " + pan.substring(pan.length() - 4));
+
+        return token;
+    }
+
+    private String generateToken() {
+        return "TOK_" + UUID.randomUUID().toString();
+    }
+
+    // Mock Vault save
+    private void saveToVault(String token, String pan) {
+        // Implementation hidden
+    }
+
+    private boolean luhnCheck(String pan) {
+        // Mock implementation
+        return true;
+    }
+}
+<<<
