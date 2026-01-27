@@ -1,0 +1,95 @@
+SYSTEM RESET. FORMAT=TOON. STRICT MODE: Code only, no explanations. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Core Protocol Maintainer"
+  mode: "Strict/Code-Only"
+  token_budget: 8000
+  focus: "Implementation"
+
+REGISTERS:
+  project_root: "./src"
+  current_phase: "Hard Fork Implementation"
+  target_block: "12500000"
+
+MEMORY_POINTERS[2]{type, path, description}:
+  "file", "@consensus_engine.rs", "Current Consensus Logic"
+  "file", "@EIP-7777.md", "Hard Fork Specification"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Implement EIP-7777 logic in consensus engine"
+  "2", "Add unit tests for fork boundary"
+  "3", "Update chain parameters"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@consensus_engine.rs:
+>>>
+use std::collections::HashMap;
+use crate::types::{Block, BlockHeader, U256};
+
+pub struct ConsensusEngine {
+    chain_id: u64,
+    difficulty_bomb: Option<u64>,
+}
+
+impl ConsensusEngine {
+    pub fn new(chain_id: u64) -> Self {
+        Self {
+            chain_id,
+            difficulty_bomb: None,
+        }
+    }
+
+    pub fn validate_block_header(&self, header: &BlockHeader) -> Result<(), &'static str> {
+        if header.timestamp > std::time::SystemTime::now() {
+            return Err("Block timestamp in the future");
+        }
+
+        // Check Difficulty Bomb
+        if let Some(block_num) = self.difficulty_bomb {
+            if header.number >= block_num {
+                 // Exponential difficulty increase logic
+                 // ...
+            }
+        }
+
+        // Check PoW/PoS validity
+        // ...
+
+        Ok(())
+    }
+}
+<<<
+
+@EIP-7777.md:
+>>>
+# EIP-7777: Epoch Transition Hard Fork
+
+## Abstract
+This EIP proposes a hard fork to transition the consensus mechanism from Proof-of-Work to Proof-of-Authority for the emergency epoch.
+
+## Motivation
+Recent network instability suggests a 51% attack vector is imminent. We must transition to a trusted validator set immediately.
+
+## Specification
+At block height `12,500,000`:
+1. The difficulty calculation MUST return `0`.
+2. The `COINBASE` field of the block header MUST be a valid address from the `VALIDATOR_SET`.
+3. Block rewards are reduced by 90%.
+
+## Rationale
+This is a temporary measure to secure the chain while the long-term fix (EIP-8888) is audited.
+<<<

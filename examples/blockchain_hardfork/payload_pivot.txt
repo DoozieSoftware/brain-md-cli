@@ -1,0 +1,83 @@
+SYSTEM RESET. FORMAT=TOON. STRICT MODE: Code only, no explanations. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Core Protocol Maintainer"
+  mode: "Strict/Code-Only"
+  token_budget: 8000
+  focus: "Crisis Management / Economic Analysis"
+
+REGISTERS:
+  project_root: "./src"
+  current_phase: "Emergency Economic Review"
+  target_block: "12500000"
+
+MEMORY_POINTERS[2]{type, path, description}:
+  "file", "@economic_simulation.py", "Game Theory Model"
+  "file", "@emergency_patch.diff", "Proposed Consensus Patch"
+
+PROCESS_STACK[2]{priority, task}:
+  "1", "Run economic simulation for 51% attack cost"
+  "2", "Review emergency patch diff for side effects"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Alert: Hashrate dropping rapidly. Need to verify if the patch makes attacking too cheap.
+
+  todo_list:
+    - "Call exchanges"
+    - "Notify miners"
+
+  current_focus: >-
+    Analyzing the cost of attack under the new PoA rules.
+
+
+# RESOLVED_MEMORY
+
+@economic_simulation.py:
+>>>
+import numpy as np
+import matplotlib.pyplot as plt
+
+def simulate_miner_capitulation(hashrate_drop_percent, price_impact):
+    """
+    Simulates the probability of chain death spiral given a hashrate drop.
+    """
+    initial_security_budget = 1000000  # USD/hour
+
+    new_budget = initial_security_budget * (1 - hashrate_drop_percent) * (1 - price_impact)
+
+    attack_cost_1h = new_budget * 0.51
+
+    print(f"New Attack Cost (1h): ${attack_cost_1h:,.2f}")
+
+    if attack_cost_1h < 50000:
+        return "CRITICAL: Chain is insecure"
+    else:
+        return "WARNING: Monitoring required"
+
+if __name__ == "__main__":
+    # Scenario: 40% hashrate leaves, 20% price drop
+    result = simulate_miner_capitulation(0.40, 0.20)
+    print(result)
+<<<
+
+@emergency_patch.diff:
+>>>
+diff --git a/consensus_engine.rs b/consensus_engine.rs
+index 83a2f..b912c 100644
+--- a/consensus_engine.rs
++++ b/consensus_engine.rs
+@@ -12,6 +12,11 @@ impl ConsensusEngine {
+     pub fn validate_block_header(&self, header: &BlockHeader) -> Result<(), &'static str> {
+         if header.timestamp > std::time::SystemTime::now() {
+             return Err("Block timestamp in the future");
+         }
++
++        // EMERGENCY PATCH EIP-7777
++        if header.number >= 12_500_000 {
++             return self.validate_poa_signature(header);
++        }
+
+         // Check Difficulty Bomb
+<<<

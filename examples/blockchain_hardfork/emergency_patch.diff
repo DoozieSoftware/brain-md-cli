@@ -1,0 +1,16 @@
+diff --git a/consensus_engine.rs b/consensus_engine.rs
+index 83a2f..b912c 100644
+--- a/consensus_engine.rs
++++ b/consensus_engine.rs
+@@ -12,6 +12,11 @@ impl ConsensusEngine {
+     pub fn validate_block_header(&self, header: &BlockHeader) -> Result<(), &'static str> {
+         if header.timestamp > std::time::SystemTime::now() {
+             return Err("Block timestamp in the future");
+         }
++
++        // EMERGENCY PATCH EIP-7777
++        if header.number >= 12_500_000 {
++             return self.validate_poa_signature(header);
++        }
+
+         // Check Difficulty Bomb
