@@ -1,0 +1,65 @@
+SYSTEM RESET. FORMAT=TOON. ANALYSIS MODE: Review and report, no modifications. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Senior Avionics Engineer"
+  mode: "Analysis"
+  token_budget: 2000
+
+REGISTERS:
+  certification_level: "DO-178C Level A"
+  current_module: "Elevator Control Law"
+  jira_ticket: "AV-1024"
+
+MEMORY_POINTERS[3]{type, path, description}:
+  "file", "@safety_requirements.req", "Safety Requirements"
+  "file", "@traceability_matrix.csv", "Requirements Traceability"
+  "file", "@derivation_rules.txt", "Derivation Rules"
+
+PROCESS_STACK[2]{priority, task}:
+  "1", "Verify coverage of all safety requirements in the traceability matrix"
+  "2", "Audit REQ-SAFE-003 against Derivation Rules for missing traceability"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Phase 1 complete. Implementation frozen. Moving to Verification.
+
+  todo_list:
+    - "Sign off REQ-SAFE-001"
+    - "Sign off REQ-SAFE-002"
+
+  current_focus: >-
+    Traceability Analysis
+
+
+# RESOLVED_MEMORY
+
+@safety_requirements.req:
+>>>
+REQ-SAFE-001: Elevator Command Limits
+The elevator control surface command SHALL NOT exceed +/- 25.0 degrees under any flight condition to prevent structural stress limits from being exceeded.
+Traceability: [flight_control.c:compute_elevator_command]
+
+REQ-SAFE-002: Integral Windup Protection
+The PID controller integration term SHALL be clamped to +/- 10.0 units to prevent actuator saturation and delayed recovery from large error states.
+Traceability: [flight_control.c:compute_elevator_command]
+
+REQ-SAFE-003: Floating Point Exception Handling
+All floating point operations SHALL be guarded against division by zero and NaN propagation.
+Traceability: [MISSING]
+<<<
+
+@traceability_matrix.csv:
+>>>
+RequirementID,SourceFile,LineNumber,VerificationMethod,Status
+REQ-SAFE-001,flight_control.c,29,Analysis,Verified
+REQ-SAFE-002,flight_control.c,18,Test,Verified
+REQ-SAFE-003,flight_control.c,23,Analysis,Open
+<<<
+
+@derivation_rules.txt:
+>>>
+RULE-DER-01: Derived requirements must be justified by system safety analysis.
+RULE-DER-02: Code that is not traceable to a high-level requirement must be classified as a derived requirement and fed back to the requirements process.
+RULE-DER-03: Deactivated code must be defined and verified to not be executable.
+<<<

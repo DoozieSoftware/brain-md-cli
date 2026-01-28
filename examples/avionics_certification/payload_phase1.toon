@@ -1,0 +1,86 @@
+SYSTEM RESET. FORMAT=TOON. STRICT MODE: Code only, no explanations. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Senior Avionics Engineer"
+  mode: "Strict/Code-Only"
+  token_budget: 2000
+
+REGISTERS:
+  certification_level: "DO-178C Level A"
+  current_module: "Elevator Control Law"
+  jira_ticket: "AV-1024"
+
+MEMORY_POINTERS[2]{type, path, description}:
+  "file", "@safety_requirements.req", "Safety Requirements"
+  "file", "@flight_control.c", "Implementation Source"
+
+PROCESS_STACK[2]{priority, task}:
+  "1", "Review implementation against REQ-SAFE-001 and REQ-SAFE-002"
+  "2", "Check for potential divide-by-zero in derivative calculation"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@safety_requirements.req:
+>>>
+REQ-SAFE-001: Elevator Command Limits
+The elevator control surface command SHALL NOT exceed +/- 25.0 degrees under any flight condition to prevent structural stress limits from being exceeded.
+Traceability: [flight_control.c:compute_elevator_command]
+
+REQ-SAFE-002: Integral Windup Protection
+The PID controller integration term SHALL be clamped to +/- 10.0 units to prevent actuator saturation and delayed recovery from large error states.
+Traceability: [flight_control.c:compute_elevator_command]
+
+REQ-SAFE-003: Floating Point Exception Handling
+All floating point operations SHALL be guarded against division by zero and NaN propagation.
+Traceability: [MISSING]
+<<<
+
+@flight_control.c:
+>>>
+#include <stdint.h>
+#include "pid.h"
+
+// SAFETY CRITICAL: LEVEL A
+// DO-178C COMPLIANT
+
+float compute_elevator_command(float pitch_error, float dt) {
+    // PID constants derived from aerodynamic model V3.2
+    const float Kp = 1.5f;
+    const float Ki = 0.05f;
+    const float Kd = 0.2f;
+
+    static float integral = 0.0f;
+    static float prev_error = 0.0f;
+
+    integral += pitch_error * dt;
+
+    // Anti-windup clamping (Requirement REQ-SAFE-002)
+    if (integral > 10.0f) integral = 10.0f;
+    if (integral < -10.0f) integral = -10.0f;
+
+    float derivative = (pitch_error - prev_error) / dt;
+
+    float output = (Kp * pitch_error) + (Ki * integral) + (Kd * derivative);
+
+    prev_error = pitch_error;
+
+    // Output limiting (Requirement REQ-SAFE-001)
+    if (output > 25.0f) return 25.0f;
+    if (output < -25.0f) return -25.0f;
+
+    return output;
+}
+<<<

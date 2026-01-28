@@ -1,0 +1,15 @@
+Analysis: The Safety of State Flushing in Avionics Certification
+
+In high-stakes environments like DO-178C avionics software certification, "State Flushing" offers a critical safety advantage over traditional continuous chat windows.
+
+1. Elimination of Context Drift:
+   In Phase 1, the LLM was biased towards *implementation* (writing code). If we kept the chat open, residual tokens from the creative coding process might influence its judgment during verification. By flushing the state and rebooting into Phase 2, we enforce a clean slate where the LLM is strictly an *auditor*. It cannot "remember" its own creative justifications for why the code was written that way; it only sees the artifacts.
+
+2. Prevention of Hallucinated Traceability:
+   In a long context window, an LLM might hallucinate a link between a requirement and a line of code simply because they were discussed together 20 turns ago. By explicitly loading only the `traceability_matrix.csv` and `safety_requirements.req` in Phase 2, we force the model to rely *solely* on the provided data, not on "faded memories" of the conversation.
+
+3. Mode Enforcement:
+   Phase 1 operated in `Strict/Code-Only` mode. Phase 2 operates in `Analysis` mode. Switching modes in a continuous chat is often "leaky"—the model tends to slide back into its previous persona. Hard-resetting via `brain compile` guarantees the System Prompt is refreshed and the behavioral constraints are re-asserted.
+
+4. Auditability:
+   The `payload_phase1.toon` and `payload_phase2.toon` files serve as immutable records of exactly what the AI saw at each stage. This is crucial for certification audits, where we must prove that the verification process was not contaminated by the implementation process.

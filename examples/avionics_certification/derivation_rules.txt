@@ -1,0 +1,3 @@
+RULE-DER-01: Derived requirements must be justified by system safety analysis.
+RULE-DER-02: Code that is not traceable to a high-level requirement must be classified as a derived requirement and fed back to the requirements process.
+RULE-DER-03: Deactivated code must be defined and verified to not be executable.
