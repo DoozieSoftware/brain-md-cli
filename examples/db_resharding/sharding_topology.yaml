@@ -1,0 +1,11 @@
+topology_version: 1.0
+cluster_name: "global-users-primary"
+current_shards:
+  - shard_00: "db-primary-00.internal:3306" (range: null)
+replication_lag: 0.02s
+proxy_layer: "vitess-vtgate"
+resharding_status: "PENDING"
+target_shards: 128
+sharding_key_candidates:
+  - "id" (HASH)
+  - "country_code" (GEO-PARTITION)

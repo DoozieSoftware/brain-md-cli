@@ -1,0 +1,13 @@
+# Migration Safety Checklist
+- [ ] **Pre-Flight Check**:
+    - Verify `gh-ost` version is > 1.1.0
+    - Check available disk space on replicas (> 2x table size)
+    - Confirm replication lag < 1s
+- [ ] **Execution Safety**:
+    - Use `--cut-over=default` (manual cutover)
+    - Set `--max-load=Threads_running=25`
+    - Monitor `p95` latency on critical paths
+- [ ] **Verification**:
+    - Compare row counts between source and target shards
+    - Run checksum on random 1% of rows
+    - Verify `auto_increment` values are correctly offset

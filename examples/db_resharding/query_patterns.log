@@ -1,0 +1,5 @@
+2023-10-27 10:00:01 [SLOW] SELECT * FROM user_feeds WHERE user_id = 8912389 ORDER BY created_at DESC LIMIT 50; (Execution: 1.2s, Rows: 50)
+2023-10-27 10:00:05 [INFO] SELECT * FROM users WHERE username = 'alice_88'; (Execution: 0.01s)
+2023-10-27 10:00:12 [SLOW] SELECT count(*) FROM users WHERE country_code = 'US'; (Execution: 4.5s)
+2023-10-27 10:00:15 [WARN] JOIN query detected: SELECT u.username, f.content FROM users u JOIN user_feeds f ON u.id = f.user_id WHERE u.id = 12345;
+2023-10-27 10:00:18 [CRITICAL] Hotspot detected on shard_00: write_iops > 8000
