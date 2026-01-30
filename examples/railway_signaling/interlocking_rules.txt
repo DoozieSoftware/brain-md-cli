@@ -1,0 +1,3 @@
+RULE_01: Signal S_Entry must be RED if Switch W_Entry is REVERSE.
+RULE_02: Signal S_Exit must be GREEN only if Track T_Main is UNOCCUPIED.
+RULE_03: Emergency Stop implies ALL SIGNALS RED within 500ms.
