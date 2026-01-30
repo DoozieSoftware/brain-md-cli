@@ -1,0 +1,8 @@
+{
+  "sector": 7,
+  "elements": [
+    {"id": "S_Entry", "type": "SIGNAL"},
+    {"id": "W_Entry", "type": "SWITCH"},
+    {"id": "T_Main", "type": "TRACK_CIRCUIT"}
+  ]
+}
