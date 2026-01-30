@@ -1,0 +1,78 @@
+SYSTEM RESET. FORMAT=TOON. ANALYSIS MODE: Review and report, no modifications. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Principal DBRE"
+  mode: "Analysis/Planning"
+  token_budget: 4000
+
+MEMORY_POINTERS[3]{type, path, description}:
+  "file", "@schema_v1.sql", "Current Database Schema"
+  "file", "@sharding_topology.yaml", "Cluster Topology Configuration"
+  "file", "@query_patterns.log", "Recent Slow Query Logs"
+
+PROCESS_STACK[2]{priority, task}:
+  "1", "Analyze query patterns for cross-shard joins"
+  "2", "Propose optimal sharding key (Hash vs Geo) based on access patterns"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@schema_v1.sql:
+>>>
+CREATE TABLE users (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    country_code CHAR(2) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY (username),
+    INDEX idx_country (country_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE user_feeds (
+    feed_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (feed_id),
+    INDEX idx_user (user_id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+<<<
+
+@sharding_topology.yaml:
+>>>
+topology_version: 1.0
+cluster_name: "global-users-primary"
+current_shards:
+  - shard_00: "db-primary-00.internal:3306" (range: null)
+replication_lag: 0.02s
+proxy_layer: "vitess-vtgate"
+resharding_status: "PENDING"
+target_shards: 128
+sharding_key_candidates:
+  - "id" (HASH)
+  - "country_code" (GEO-PARTITION)
+<<<
+
+@query_patterns.log:
+>>>
+2023-10-27 10:00:01 [SLOW] SELECT * FROM user_feeds WHERE user_id = 8912389 ORDER BY created_at DESC LIMIT 50; (Execution: 1.2s, Rows: 50)
+2023-10-27 10:00:05 [INFO] SELECT * FROM users WHERE username = 'alice_88'; (Execution: 0.01s)
+2023-10-27 10:00:12 [SLOW] SELECT count(*) FROM users WHERE country_code = 'US'; (Execution: 4.5s)
+2023-10-27 10:00:15 [WARN] JOIN query detected: SELECT u.username, f.content FROM users u JOIN user_feeds f ON u.id = f.user_id WHERE u.id = 12345;
+2023-10-27 10:00:18 [CRITICAL] Hotspot detected on shard_00: write_iops > 8000
+<<<
