@@ -1,0 +1,104 @@
+SYSTEM RESET. FORMAT=TOON. ANALYSIS MODE: Review and report, no modifications. `>>>` denotes raw file. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Senior Perception Engineer"
+  mode: "Analysis"
+  token_budget: 8000
+  domain: "Autonomous Vehicles"
+
+REGISTERS:
+  platform: "NVIDIA Drive Orin"
+  sensor_suite: "Lidar(Velodyne)+Camera(OnSemi)"
+  cuda_version: "11.4"
+  safety_level: "ASIL-D"
+  current_phase: "Verification"
+
+MEMORY_POINTERS[3]{type, path, description}:
+  "file", "@fusion_kernel.cu", "CUDA implementation of projection logic"
+  "file", "@calibration_extrinsics.yaml", "Sensor extrinsic matrices"
+  "file", "@iso26262_safety_goals.req", "Safety requirements"
+
+PROCESS_STACK[2]{priority, task}:
+  "1", "Verify fusion_kernel.cu against SG-03 (Memory Corruption)"
+  "2", "Generate FMEA report for ghost object scenarios (SG-01)"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Shifted focus to safety analysis.
+    Concerns about memory bounds in the kernel.
+
+  todo_list:
+    - "Check bounds checking"
+    - "Validate ASIL-D compliance"
+
+  current_focus: >-
+    Safety Audit
+
+
+# RESOLVED_MEMORY
+
+@fusion_kernel.cu:
+>>>
+#include <cuda_runtime.h>
+
+// Projection of LiDAR points to Camera Image Plane
+// Input: points (x, y, z), calibration (RT matrix)
+// Output: projected_pixels (u, v, depth)
+
+__global__ void project_lidar_to_camera(float* points, float* calibration, float* output, int num_points) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= num_points) return;
+
+    // Load point
+    float x = points[idx * 3];
+    float y = points[idx * 3 + 1];
+    float z = points[idx * 3 + 2];
+
+    // TODO: Apply Rotation and Translation
+    // float x_cam = ...
+
+    // TODO: Apply Intrinsic Projection
+    // float u = ...
+
+    // Write output (Potential memory bank conflict here?)
+    output[idx * 3] = 0.0f; // Placeholder
+}
+<<<
+
+@calibration_extrinsics.yaml:
+>>>
+sensor_id: "lidar_top_01"
+target_sensor: "camera_front_main"
+transform:
+  rotation:
+    q_x: 0.0
+    q_y: 0.707
+    q_z: 0.0
+    q_w: 0.707
+  translation:
+    x: 0.5
+    y: 0.0
+    z: 1.2
+accuracy_score: 0.998
+last_calibrated: "2023-10-27"
+<<<
+
+@iso26262_safety_goals.req:
+>>>
+# Safety Requirements (ISO 26262 ASIL-D)
+
+## SG-01: Ghost Object Suppression
+The system shall not classify a non-existent object as an obstacle with confidence > 50% for more than 3 consecutive frames.
+*ASIL*: D
+*Latency Budget*: 100ms
+
+## SG-02: Sensor Misalignment Detection
+The fusion module must detect if calibration extrinsics deviate by > 0.5 degrees and trigger Safe Stop.
+*ASIL*: C
+*Response Time*: 500ms
+
+## SG-03: Memory Corruption Protection
+All shared memory access in CUDA kernels must be bounds-checked to prevent overwriting adjacent buffers.
+*ASIL*: D
+<<<
