@@ -1,0 +1,14 @@
+sensor_id: "lidar_top_01"
+target_sensor: "camera_front_main"
+transform:
+  rotation:
+    q_x: 0.0
+    q_y: 0.707
+    q_z: 0.0
+    q_w: 0.707
+  translation:
+    x: 0.5
+    y: 0.0
+    z: 1.2
+accuracy_score: 0.998
+last_calibrated: "2023-10-27"

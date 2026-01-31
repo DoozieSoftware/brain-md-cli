@@ -1,0 +1,15 @@
+# Safety Requirements (ISO 26262 ASIL-D)
+
+## SG-01: Ghost Object Suppression
+The system shall not classify a non-existent object as an obstacle with confidence > 50% for more than 3 consecutive frames.
+*ASIL*: D
+*Latency Budget*: 100ms
+
+## SG-02: Sensor Misalignment Detection
+The fusion module must detect if calibration extrinsics deviate by > 0.5 degrees and trigger Safe Stop.
+*ASIL*: C
+*Response Time*: 500ms
+
+## SG-03: Memory Corruption Protection
+All shared memory access in CUDA kernels must be bounds-checked to prevent overwriting adjacent buffers.
+*ASIL*: D
