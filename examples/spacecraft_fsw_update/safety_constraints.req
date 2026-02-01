@@ -1,0 +1,4 @@
+REQ-SAFE-001: Maximum continuous thrust duration shall not exceed 500.0 seconds.
+REQ-SAFE-002: Delta-V calculations shall be double-checked against the redundant navigation solution.
+REQ-SAFE-003: No burn shall be executed if the battery state of charge is below 20%.
+REQ-SAFE-004: Engine gimbal angle shall be clamped to +/- 5.0 degrees.

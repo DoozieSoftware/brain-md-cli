@@ -1,0 +1,79 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  role: "Lead GNC Engineer"
+  mode: "Mission-Critical/Safety-First"
+  token_budget: 8192
+
+REGISTERS:
+  project_root: "./src"
+  current_phase: "Safety Verification"
+  mission_segment: "Orbital Insertion"
+
+MEMORY_POINTERS[3]{type, path, description}:
+  "file", "@orbital_mechanics.c", "Burn Calculation Logic"
+  "file", "@telemetry_schema.json", "Telemetry Packet Definition"
+  "file", "@safety_constraints.req", "Safety Requirements"
+
+PROCESS_STACK[3]{priority, task}:
+  "1", "Audit calculate_delta_v against REQ-SAFE-002"
+  "2", "Verify engine gimbal clamps (REQ-SAFE-004)"
+  "3", "Sign off on Flight Readiness Review"
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Realized we haven't checked the redundant nav solution yet.
+    Halting implementation to verify safety constraints.
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    Verifying REQ-SAFE-002 before proceeding.
+
+
+# RESOLVED_MEMORY
+
+@orbital_mechanics.c:
+>>>
+#include <math.h>
+#include "fsw_types.h"
+
+// TODO: Implement Orbital Insertion Burn Logic
+// CAUTION: Ensure units are in m/s, not km/s
+double calculate_delta_v(Vector3 current_vel, Vector3 target_vel) {
+    // Placeholder for implementation
+    // Needs to account for Oberth effect if near periapsis
+    return 0.0;
+}
+
+void execute_burn(double delta_v) {
+    // CRITICAL: Check against safety constraints before firing
+}
+<<<
+
+@telemetry_schema.json:
+>>>
+{
+  "packet_id": "0x1A4",
+  "subsystem": "GNC",
+  "fields": [
+    {"name": "timestamp_ms", "type": "uint64", "unit": "ms"},
+    {"name": "current_velocity_x", "type": "float64", "unit": "m/s"},
+    {"name": "current_velocity_y", "type": "float64", "unit": "m/s"},
+    {"name": "current_velocity_z", "type": "float64", "unit": "m/s"},
+    {"name": "planned_delta_v", "type": "float64", "unit": "m/s"},
+    {"name": "burn_duration", "type": "float32", "unit": "s"}
+  ]
+}
+<<<
+
+@safety_constraints.req:
+>>>
+REQ-SAFE-001: Maximum continuous thrust duration shall not exceed 500.0 seconds.
+REQ-SAFE-002: Delta-V calculations shall be double-checked against the redundant navigation solution.
+REQ-SAFE-003: No burn shall be executed if the battery state of charge is below 20%.
+REQ-SAFE-004: Engine gimbal angle shall be clamped to +/- 5.0 degrees.
+<<<
