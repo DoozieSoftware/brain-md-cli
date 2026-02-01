@@ -1,0 +1,12 @@
+{
+  "packet_id": "0x1A4",
+  "subsystem": "GNC",
+  "fields": [
+    {"name": "timestamp_ms", "type": "uint64", "unit": "ms"},
+    {"name": "current_velocity_x", "type": "float64", "unit": "m/s"},
+    {"name": "current_velocity_y", "type": "float64", "unit": "m/s"},
+    {"name": "current_velocity_z", "type": "float64", "unit": "m/s"},
+    {"name": "planned_delta_v", "type": "float64", "unit": "m/s"},
+    {"name": "burn_duration", "type": "float32", "unit": "s"}
+  ]
+}
