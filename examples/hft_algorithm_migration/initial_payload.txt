@@ -1,0 +1,88 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  domain: "fpga_hft"
+  language: "vhdl"
+  framework: "xilinx_vivado"
+
+REGISTERS:
+  goal: "TRANSLATE"
+  source_lang: "cpp"
+  target_lang: "vhdl"
+  latency_constraint: "200ns"
+
+MEMORY_POINTERS[3]{path}:
+  "@legacy_strategy.cpp"
+  "@market_data_schema.h"
+  "@risk_limits.json"
+
+PROCESS_STACK[3]{task}:
+  "Analyze legacy_strategy.cpp for integer width assumptions."
+  "Map C++ structs to VHDL std_logic_vector signals."
+  "Generate VHDL entity for on_market_update."
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Add your session notes here...
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    What you're working on right now...
+
+
+# RESOLVED_MEMORY
+
+@legacy_strategy.cpp:
+>>>
+#include "market_data_schema.h"
+#include <iostream>
+
+// Legacy strategy for ARB
+// WARNING: This code assumes 32-bit architecture for some calculations.
+// MIGRATION NOTE: Verify all int usage for FPGA widths.
+
+void on_market_update(const MarketDataPacket& packet) {
+    static int position = 0;
+    int price_delta = packet.ask_price - packet.bid_price;
+
+    // Simple momentum logic
+    if (price_delta > 100) {
+        // RACE CONDITION RISK: 'position' read/write not atomic if multi-threaded
+        if (position < 1000) {
+             position += 100;
+             std::cout << "BUY Signal. New Pos: " << position << std::endl;
+        }
+    }
+}
+<<<
+
+@market_data_schema.h:
+>>>
+#ifndef MARKET_DATA_SCHEMA_H
+#define MARKET_DATA_SCHEMA_H
+
+#include <cstdint>
+
+struct MarketDataPacket {
+    uint32_t symbol_id;
+    uint32_t bid_price; // Scaled by 10^4
+    uint32_t ask_price; // Scaled by 10^4
+    uint32_t timestamp_ns;
+};
+
+#endif
+<<<
+
+@risk_limits.json:
+>>>
+{
+  "max_position": 1000,
+  "max_loss_per_tick": 5000,
+  "allowed_symbols": ["AAPL", "GOOG", "MSFT"],
+  "kill_switch_enabled": true
+}
+<<<

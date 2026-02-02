@@ -1,0 +1,84 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  domain: "fpga_hft"
+  language: "vhdl"
+  framework: "xilinx_vivado"
+
+REGISTERS:
+  goal: "AUDIT"
+  source_lang: "cpp"
+  target_lang: "vhdl"
+  latency_constraint: "200ns"
+  audit_standard: "REGULATION_NMS"
+
+MEMORY_POINTERS[3]{path}:
+  "@legacy_strategy.cpp"
+  "@regulation_nms.txt"
+  "@compliance_checklist.md"
+
+PROCESS_STACK[3]{task}:
+  "Scan legacy_strategy.cpp for trade-through violations."
+  "Verify timestamp precision against Regulation NMS requirements."
+  "Fill out compliance_checklist.md based on findings."
+
+
+SESSION_SCRATCHPAD:
+  session_notes: >-
+    Pivot to Audit.
+    Concern: Rule 611 compliance.
+
+  todo_list:
+    - "First thing to do"
+    - "Second thing to do"
+
+  current_focus: >-
+    Auditing for Reg NMS.
+
+
+# RESOLVED_MEMORY
+
+@legacy_strategy.cpp:
+>>>
+#include "market_data_schema.h"
+#include <iostream>
+
+// Legacy strategy for ARB
+// WARNING: This code assumes 32-bit architecture for some calculations.
+// MIGRATION NOTE: Verify all int usage for FPGA widths.
+
+void on_market_update(const MarketDataPacket& packet) {
+    static int position = 0;
+    int price_delta = packet.ask_price - packet.bid_price;
+
+    // Simple momentum logic
+    if (price_delta > 100) {
+        // RACE CONDITION RISK: 'position' read/write not atomic if multi-threaded
+        if (position < 1000) {
+             position += 100;
+             std::cout << "BUY Signal. New Pos: " << position << std::endl;
+        }
+    }
+}
+<<<
+
+@regulation_nms.txt:
+>>>
+REGULATION NMS - SUBPART B
+Rule 611 - Order Protection Rule
+
+(a) Reasonable policies and procedures.
+(1) A trading center shall establish, maintain, and enforce written policies and procedures that are reasonably designed to prevent trade-throughs on that trading center of protected quotations in NMS stocks that do not fall within an exception set forth in paragraph (b) of this section and, if relying on such an exception, are reasonably designed to assure compliance with the terms of the exception.
+
+(2) The policies and procedures required by paragraph (a)(1) of this section shall be reasonably designed to enable the trading center to meet the gross negligence standard.
+<<<
+
+@compliance_checklist.md:
+>>>
+# Audit Checklist for NMS Compliance
+
+1. [ ] Verify no trade-throughs logic exists.
+2. [ ] Check timestamp precision (nanoseconds required).
+3. [ ] Ensure ISO orders are marked correctly.
+4. [ ] Validate "Intermarket Sweep" logic.
+<<<

@@ -1,0 +1,7 @@
+REGULATION NMS - SUBPART B
+Rule 611 - Order Protection Rule
+
+(a) Reasonable policies and procedures.
+(1) A trading center shall establish, maintain, and enforce written policies and procedures that are reasonably designed to prevent trade-throughs on that trading center of protected quotations in NMS stocks that do not fall within an exception set forth in paragraph (b) of this section and, if relying on such an exception, are reasonably designed to assure compliance with the terms of the exception.
+
+(2) The policies and procedures required by paragraph (a)(1) of this section shall be reasonably designed to enable the trading center to meet the gross negligence standard.
