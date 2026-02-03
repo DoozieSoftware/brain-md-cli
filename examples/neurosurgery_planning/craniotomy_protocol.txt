@@ -1,0 +1,25 @@
+STANDARD OPERATING PROCEDURE: STEREOTACTIC BIOPSY / ELECTRODE PLACEMENT
+
+1. PRE-OP CHECKLIST
+   - Verify patient ID and laterality (LEFT side).
+   - Load trajectory plan into StealthStation.
+   - Confirm antibiotic prophylaxis administered.
+
+2. ANESTHESIA
+   - Conscious sedation (MAC) preferred for electrode testing.
+   - Maintain SBP < 140 mmHg.
+
+3. APPROACH
+   - Pre-coronal burr hole (Kocher's point).
+   - Incise dura (cruciate fashion).
+   - Secure stereotactic arc.
+
+4. TRAJECTORY VERIFICATION
+   - Insert micro-drive.
+   - Advance recording electrode to 10mm above target.
+   - Record MER (Micro-Electrode Recording) activity.
+
+5. FINAL PLACEMENT
+   - Confirm VIM thalamic signature (burst cells).
+   - Test stimulation for tremor suppression.
+   - Lock lead.

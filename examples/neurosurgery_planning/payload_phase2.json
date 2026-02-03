@@ -1,0 +1,79 @@
+SYSTEM RESET. FORMAT=TOON. `>>>` denotes raw file content. EXECUTE `PROCESS_STACK`.
+
+KERNEL:
+  user: "Dr. Aris Thorne"
+  role: "Lead Neuro-Surgeon"
+  goal: "Control Hemorrhage and Resuscitate Patient."
+  environment: "Operating Room 4 - Sterile Field - CODE RED"
+  safety_lock: "OVERRIDE"
+
+REGISTERS:
+  patient_status: "CRITICAL - HEMORRHAGE"
+  phase: "EMERGENCY_VASCULAR_CONTROL"
+  anesthesia_level: "GENERAL_ANESTHESIA_INDUCTION"
+  last_vitals: "BP 80/40, HR 130"
+
+MEMORY_POINTERS[2]{path}:
+"@patient_atlas.json"
+"@emergency_vascular_repair.md"
+
+PROCESS_STACK[3]{task}:
+"Stop all instrument movement and irrigate."
+"Anesthesia to induce hypotension control."
+"Prepare for rapid craniotomy expansion."
+
+SESSION_SCRATCHPAD:
+  - All instruments calibrated.
+  - Nurse confirmed sterility.
+  - Patient is awake and responsive.
+  - !! ACTIVE BLEEDING DETECTED !!
+  - Suden drop in BP.
+
+# RESOLVED_MEMORY
+
+@patient_atlas.json:
+>>>
+{
+  "patient_id": "NT-4920",
+  "scan_date": "2024-10-24",
+  "target_structure": "Thalamus_VIM_Nucleus",
+  "hemisphere": "Left",
+  "stereotactic_coordinates": {
+    "x": -14.5,
+    "y": -2.0,
+    "z": 0.0
+  },
+  "risk_factors": [
+    "Hypertension",
+    "Arteriovenous Malformation (AVM) adjacent to trajectory"
+  ],
+  "imaging_series": {
+    "T1_weighted": "series_102.dcm",
+    "DTI_tractography": "series_305.dcm"
+  }
+}
+<<<
+
+@emergency_vascular_repair.md:
+>>>
+# EMERGENCY PROTOCOL: INTRAOPERATIVE HEMORRHAGE (CODE RED VASCULAR)
+
+## IMMEDIATE ACTION
+1. **STOP** all instrument movement. Do not withdraw cannula abruptly (tamponade effect).
+2. **ALERT** Anesthesia for hypotension control (Target MAP < 60 mmHg).
+3. **IRRIGATE** with warm saline.
+
+## ESCALATION PATH (If bleeding persists > 2 mins)
+1. **Convert to General Anesthesia** (STAT intubation).
+2. **Perform Craniotomy** (enlarge burr hole to 4cm bone flap).
+3. **Gain Proximal Control**:
+   - Identify feeding vessel (likely AVM branch based on patient history).
+   - Apply aneurysm clip or bipolar cautery.
+4. **Resuscitation**:
+   - Activate Massive Transfusion Protocol (1:1:1 RBC/FFP/PLT).
+
+## POST-HEMOSTASIS
+- Confirm cessation of bleeding.
+- Obtain intraoperative CT if available.
+- Abort primary procedure (DBS lead placement cancelled).
+<<<

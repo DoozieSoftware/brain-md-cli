@@ -1,0 +1,19 @@
+{
+  "patient_id": "NT-4920",
+  "scan_date": "2024-10-24",
+  "target_structure": "Thalamus_VIM_Nucleus",
+  "hemisphere": "Left",
+  "stereotactic_coordinates": {
+    "x": -14.5,
+    "y": -2.0,
+    "z": 0.0
+  },
+  "risk_factors": [
+    "Hypertension",
+    "Arteriovenous Malformation (AVM) adjacent to trajectory"
+  ],
+  "imaging_series": {
+    "T1_weighted": "series_102.dcm",
+    "DTI_tractography": "series_305.dcm"
+  }
+}
