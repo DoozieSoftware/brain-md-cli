@@ -1,0 +1,4 @@
+REQ-001: The system must trip within 50ms of overspeed detection.
+REQ-002: Fail-safe state is de-energized (Logic 0) for the trip relay.
+REQ-003: All safety variables must be isolated from HMI writable memory.
+REQ-004: Overspeed threshold must be hard-coded or protected by physical key-switch.
