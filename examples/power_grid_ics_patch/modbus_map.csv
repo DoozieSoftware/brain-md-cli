@@ -1,0 +1,5 @@
+Register,Name,Type,Access,Description
+40001,TURBINE_RPM,FLOAT,RO,Current Turbine Speed
+40003,TRIP_STATUS,BOOL,RW,Trip Status (1=Tripped)
+40004,MAX_RPM_LIMIT,FLOAT,RW,Overspeed Threshold
+40006,BEARING_TEMP,FLOAT,RO,Main Bearing Temperature
