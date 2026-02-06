@@ -1,0 +1,5 @@
+Opcode,GasCost,Note
+SLOAD,2100,Cold load
+SSTORE,20000,New slot
+CALL,2600,Base cost
+LOG,375,Per log
